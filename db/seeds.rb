@@ -1,9 +1,106 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# Clear the database to avoid duplicates
+Event.destroy_all
+Tag.destroy_all
+Group.destroy_all
+User.destroy_all
+FavoriteEvent.destroy_all
+Request.destroy_all
+EventTag.destroy_all
+GroupMessage.destroy_all
+UserTag.destroy_all
+
+# Create 40 music-related tags
+tag_names = [
+  "rock", "hip hop", "jazz", "lo fi", "ambient", "electronic", "pop",
+  "punk", "metal", "reggae", "blues", "salsa", "techno", "disco", "folk",
+  "classical", "house", "trance", "synthwave", "karaoke", "spoken word",
+  "acoustic", "indie", "progressive", "melodic", "vocals", "instrumental",
+  "dj set", "festival", "gig", "concert", "playlist", "live session",
+  "cover band", "open mic", "jam session", "soundtrack", "choir", "opera",
+  "studio recording", "performance"
+]
+
+tags = tag_names.map { |name| Tag.create!(name: name) }
+
+# Create 10 real-world locations
+locations = [
+  "Madison Square Garden, New York", "Wembley Stadium, London",
+  "Sydney Opera House, Sydney", "Red Rocks Amphitheatre, Colorado",
+  "Tokyo Dome, Tokyo", "O2 Arena, London", "Hollywood Bowl, Los Angeles",
+  "Mercedes-Benz Arena, Berlin", "Olympic Stadium, Montreal", "Estadio Azteca, Mexico City"
+]
+
+# Create 10 active band names as event names
+band_names = [
+  "Coldplay", "Imagine Dragons", "BTS", "Foo Fighters", "Arctic Monkeys",
+  "The Weeknd", "Metallica", "Dua Lipa", "Billie Eilish", "Maroon 5"
+]
+
+# Create 10 events, each with a real location and band name
+events = 10.times.map do |i|
+  Event.create!(
+    name: band_names[i],
+    location: locations.sample,
+    description: "Concert by #{band_names[i]}",
+    date: Date.today + rand(1..30)
+  )
+end
+
+# Assign 3 random tags to each event
+events.each { |event| event.tags << tags.sample(3) }
+
+# Create 10 users
+users = 10.times.map do |i|
+  User.create!(
+    email: "user#{i + 1}@example.com",
+    password: "password123",
+    password_confirmation: "password123"
+  )
+end
+
+# Create 10 groups, each owned by a random user and linked to an event with matching names
+groups = events.map do |event|
+  Group.create!(
+    bio: "Group for enjoying #{event.name} together",
+    event: event,
+    user: users.sample
+  )
+end
+
+# Create requests with specific statuses for users
+statuses = %w[rejected accepted pending]
+
+users.each_with_index do |user, index|
+  # Skip groups created by the user
+  group_to_request = groups.reject { |group| group.user_id == user.id }.sample
+
+  Request.create!(
+    status: statuses[index % 3], # Ensure all statuses are represented
+    user: user,
+    group: group_to_request,
+    event: group_to_request.event
+  )
+end
+
+# Ensure 2 specific users make 2 requests each to different groups
+2.times do |i|
+  user = users[i]
+  groups_to_request = groups.reject { |group| group.user_id == user.id }.sample(2)
+
+  groups_to_request.each do |group|
+    Request.create!(
+      status: "accepted",
+      user: user,
+      group: group,
+      event: group.event
+    )
+  end
+end
+
+# Output seed completion
+puts "Seeding completed!"
+puts "#{Tag.count} music-related tags created."
+puts "#{Event.count} music events created with real locations and band names."
+puts "#{User.count} users created."
+puts "#{Group.count} groups created."
+puts "#{Request.count} requests created."
