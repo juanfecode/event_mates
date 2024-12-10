@@ -5,22 +5,17 @@ class GroupsController < ApplicationController
   def new
     @group = Group.new
     @event = Event.find(params[:id])
-    @users = User.all
+    @users = User.all # this needs to be updated once we tackle favorites to include only users who have favorited the event...
   end
 
   def create
-    @group = Group.new(group_params)
+    updated_params = group_params
+    updated_params[:event] = Event.find(params[:group][:event_id]) 
+    @group = Group.new(updated_params)
+    @users = User.all
     users_invited = params[:group][:user].reject(&:blank?)
     if @group.save
-      users_invited.each do |user|
-        user_instance = User.find(user)
-        request = Request.new
-        request.group = @group
-        request.event = @group.event
-        request.status = "pending"
-        request.user = user_instance
-        request.save
-      end
+      users_invited.each { |user| Request.create(group: @group, event: @group.event, user: User.find(user)) }
       redirect_to root_path
     else
       render :new, status: :unprocessable_entity
@@ -42,6 +37,6 @@ class GroupsController < ApplicationController
   private
 
   def group_params
-    params.require(:group).permit(:event_id, :bio, :user_id)
+    params.require(:group).permit(:event_id, :bio, :user_id, :event, :user)
   end
 end
