@@ -58,6 +58,14 @@ users = 10.times.map do |i|
   )
 end
 
+# Assign 3 random tags to each user as user_tags
+users.each do |user|
+  user_tags = tags.sample(3)
+  user_tags.each do |tag|
+    UserTag.create!(user: user, tag: tag)
+  end
+end
+
 # Create 10 groups, each owned by a random user and linked to an event with matching names
 groups = events.map do |event|
   Group.create!(
@@ -74,26 +82,32 @@ users.each_with_index do |user, index|
   # Skip groups created by the user
   group_to_request = groups.reject { |group| group.user_id == user.id }.sample
 
-  Request.create!(
-    status: statuses[index % 3], # Ensure all statuses are represented
-    user: user,
-    group: group_to_request,
-    event: group_to_request.event
-  )
+  # Ensure no duplicate request exists for the user and group
+  unless Request.exists?(user: user, group: group_to_request)
+    Request.create!(
+      status: statuses[index % 3], # Ensure all statuses are represented
+      user: user,
+      group: group_to_request,
+      event: group_to_request.event
+    )
+  end
 end
 
 # Ensure 2 specific users make 2 requests each to different groups
 2.times do |i|
   user = users[i]
-  groups_to_request = groups.reject { |group| group.user_id == user.id }.sample(2)
+  groups_to_request = groups.reject { |group| group.user_id == user.id }
 
-  groups_to_request.each do |group|
-    Request.create!(
-      status: "accepted",
-      user: user,
-      group: group,
-      event: group.event
-    )
+  groups_to_request.sample(2).each do |group|
+    # Ensure no duplicate request exists for the user and group
+    unless Request.exists?(user: user, group: group)
+      Request.create!(
+        status: "accepted",
+        user: user,
+        group: group,
+        event: group.event
+      )
+    end
   end
 end
 
@@ -104,3 +118,4 @@ puts "#{Event.count} music events created with real locations and band names."
 puts "#{User.count} users created."
 puts "#{Group.count} groups created."
 puts "#{Request.count} requests created."
+puts "#{UserTag.count} user tags created."
