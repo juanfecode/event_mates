@@ -13,4 +13,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  get "/events/:id/groups/new", to: "groups#new", as: "new_group"
+  post "/groups", to: "groups#create"
 end
