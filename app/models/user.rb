@@ -10,6 +10,12 @@ class User < ApplicationRecord
   has_many :events, through: :requests
   has_many :requests
   has_many :groups
-  has_many :groups_requests, through: :requests, source: :group
+  has_many :groups_requested, through: :requests, source: :group
+  has_many :accepted_requests, -> { where(status: "accepted") }, class_name: "Request"
+  has_many :accepted_groups, through: :accepted_requests, source: :group
   has_many :group_messages
+
+  def own_groups
+    groups
+  end
 end
