@@ -111,6 +111,23 @@ end
   end
 end
 
+# Favorite events for users
+
+events = Event.all
+users = User.all
+
+users.each do |user|
+  5.times do
+    event = events.sample
+    unless FavoriteEvent.exists?(user: user, event: event)
+      FavoriteEvent.create!(
+        event: event,
+        user: user
+      )
+    end
+  end
+end
+
 # Output seed completion
 puts "Seeding completed!"
 puts "#{Tag.count} music-related tags created."

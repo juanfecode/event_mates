@@ -1,7 +1,7 @@
 <%= simple_form_for @group do |f| %>
     <%= f.input :bio %>
     <%= f.hidden_field :user_id, value: current_user.id %>
-    <%= f.hidden_field :event, value: @event %>
+    <%= f.association :event, label_method: :name %>
     <%= f.input :user,
                    collection: @users,
                    as: :check_boxes,

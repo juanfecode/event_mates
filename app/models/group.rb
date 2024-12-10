@@ -7,6 +7,8 @@ class Group < ApplicationRecord
   has_many :members, through: :accepted_requests, source: :user
   # scope :traer_nombre, ->(name) { where(name: name) }
 
+  validates :bio, presence: true
+
   def owner
     user
   end
