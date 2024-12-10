@@ -5,12 +5,12 @@ class GroupsController < ApplicationController
   def new
     @group = Group.new
     @event = Event.find(params[:id])
-    @users = User.all # this needs to be updated once we tackle favorites to include only users who have favorited the event...
+    @users = User.all.reject { |user| user == current_user }
   end
 
   def create
     updated_params = group_params
-    updated_params[:event] = Event.find(params[:group][:event_id]) 
+    updated_params[:event] = Event.find(params[:group][:event_id])
     @group = Group.new(updated_params)
     @users = User.all
     users_invited = params[:group][:user].reject(&:blank?)
