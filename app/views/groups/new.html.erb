@@ -1,13 +1,31 @@
 <%= simple_form_for @group do |f| %>
     <%= f.input :bio %>
     <%= f.hidden_field :user_id, value: current_user.id %>
-    <%= f.association :event, label_method: :name %>
-    <%= f.input :user,
-                   collection: @users,
-                   as: :check_boxes,
-                   label_method: :email,
-                   value_method: :id,
-                   input_html: { class: "form-check-input" },
-                   item_wrapper_class: "form-check" %>
-    <%= f.submit %>
+    <%= f.hidden_field :event_id, value: @event.id %>
+    <!-- Users as Cards -->
+    <div class="row">
+        <% @users.each do |user| %>
+        <div class="col-md-4">
+            <div class="card mb-3" style="width: 18rem;">
+            <div class="card-body text-center">
+                <!-- User Image (we're missing this... need new column) -->
+                <%# image_tag(user.avatar.attached? ? url_for(user.avatar) : 'https://via.placeholder.com/100', class: "card-img-top rounded-circle mb-3", alt: user.name) %>
+                
+                <!-- User Info (we're missing some things here: name, age... probably don't want to be giving out emails... need new columns) -->
+                <h5 class="card-title"><%# user.name %></h5>
+                <p class="card-text"><%= user.email %></p>
+                
+                <!-- User Checkbox -->
+                <div class="form-check">
+                <%= check_box_tag 'group[user][]', user.id, class: "form-check-input", id: "user_#{user.id}" %>
+                <%= label_tag "user_#{user.id}", "Invite", class: "form-check-label" %>
+                </div>
+            </div>
+            </div>
+        </div>
+        <% end %>
+    </div>
+
+    <!-- Submit Button -->
+    <%= f.submit 'Create Group', class: 'btn btn-primary' %>
 <% end %>
