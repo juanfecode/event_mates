@@ -1,0 +1,8 @@
+<div class="profile">
+  <div class="avatar">
+    <%# image_tag @user.avatar.attached? ? url_for(@user.avatar) : 'placeholder.jpg', class: "avatar-img" %>
+  </div>
+  <h1><%= @user.first_name %> <%= @user.last_name %></h1>
+  <h6><%= @user.dob %></h6>
+  <p><%# @user.bio %></p>
+</div>
