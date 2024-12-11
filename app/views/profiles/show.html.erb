@@ -1,8 +1,19 @@
 <div class="profile">
-  <div class="avatar">
-    <%# image_tag @user.avatar.attached? ? url_for(@user.avatar) : 'placeholder.jpg', class: "avatar-img" %>
+  <div class="profile-banner">
+  <%= image_tag(asset_path('banner-placeholder.jpg'), alt: 'Cover Banner', class: 'cover-banner') %>
+    <div class="avatar-large">
+      <% if current_user.photo.attached? %>
+        <%= image_tag current_user.photo.variant(resize_to_fit: [150, 150]), class: "avatar-img", alt: "User Avatar" %>
+      <% else %>
+        <%= image_tag "avatar-placeholder.png", class: "avatar-img", alt: "Default Avatar" %>
+      <% end %>
+    </div>
   </div>
-  <h1><%= @user.first_name %> <%= @user.last_name %></h1>
-  <h6><%= @user.dob %></h6>
-  <p><%# @user.bio %></p>
+  <div class="profile-info">
+    <h1><%= @user.first_name %> <%= @user.last_name %></h1>
+    <div class="profile-details">
+      <h6><%= @user.dob %></h6>
+      <p><%# @user.bio %></p>
+    </div>
+  </div>
 </div>

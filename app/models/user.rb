@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :accepted_requests, -> { where(status: "accepted") }, class_name: "Request"
   has_many :accepted_groups, through: :accepted_requests, source: :group
   has_many :group_messages
+  has_one_attached :photo
 
   def own_groups
     groups
