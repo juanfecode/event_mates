@@ -1,0 +1,22 @@
+<div class="container mt-3 p-3 border shadow">
+    <table class="table table-striped">
+        <thead>
+            <td>ID</td>
+            <td>User</td>
+            <td>Group ID</td>
+            <td>Group Event</td>
+            <td>Status</td>
+        </thead>
+        <tbody>
+            <% @requests.each do |request| %>
+                <tr>
+                    <td><%= request.id %></td>
+                    <td><%= request.user.email %></td>
+                    <td><%= request.group.id %></td>
+                    <td><%= request.group.event.name %></td>
+                    <td><%= request.status %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   
 
   # gaston
-
+  get "/groups/:id", to: "groups#show", as: "group"
+  get "/requests", to: "requests#index"
 
 end
