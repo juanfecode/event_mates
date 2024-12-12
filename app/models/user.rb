@@ -19,4 +19,14 @@ class User < ApplicationRecord
   def own_groups
     groups
   end
+
+  def member?(group)
+    accepted_groups.where(id: group.id).any? || self == group.owner
+  end
+
+  def invited_or_requested?(group)
+    invited = requests.where(group_id: group.id).where(status: "pending_join").any?
+    requested = requests.where(group_id: group.id).where(status: "pending_allow").any?
+    invited || requested
+  end
 end

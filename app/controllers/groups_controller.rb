@@ -26,6 +26,23 @@ class GroupsController < ApplicationController
     end
   end
 
+  def invite
+    @group = Group.find(params[:id])
+    favorite_users = @group.event.favorited_by.reject { |user| user == current_user }
+    @users = favorite_users.reject do |user|
+      user.member?(@group) || user.invited_or_requested?(@group)
+    end
+  end
+
+  def invite_requests
+    @group = Group.find(params[:id])
+    users_invited = params[:group][:user]
+    users_invited.each do |user|
+      Request.create(group: @group, event: @group.event, user: User.find(user), status: "pending_join")
+    end
+    redirect_to group_path(@group)
+  end
+
   def show
     # group set by set_group
     @outgoing_requests = @group.outgoing_requests

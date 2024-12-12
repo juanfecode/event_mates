@@ -27,12 +27,16 @@ Rails.application.routes.draw do
 
   # kyle
   get "profiles/:id", to: "profiles#show", as: "profile"
-
+  get "tags", to: "tags#index", as:"tags"
+  post "tags/:tag_id", to: "tags#add_tag", as: "add_tag"
+  delete "tags/:tag_id", to: "tags#remove_tag", as: "remove_tag"
 
 
 
   # gaston
   get "/groups/:id", to: "groups#show", as: "group"
+  get "/groups/:id/invite", to: "groups#invite", as: "invite_group"
+  post "/groups/:id/invite", to: "groups#invite_requests", as: "invite_requests"
   get "/requests", to: "requests#index"
   delete "/requests/:id/cancel_request", to: "requests#cancel_request", as: "cancel_request"
   patch "/requests/:id/reject_request", to: "requests#reject_request", as: "reject_request"
