@@ -2,8 +2,8 @@
   <div class="profile-banner">
   <%= image_tag(asset_path('banner-placeholder.jpg'), alt: 'Cover Banner', class: 'cover-banner') %>
     <div class="profile-avatar">
-      <% if current_user.photo.attached? %>
-        <%= cl_image_tag current_user.photo.key, class: "profile-avatar-img", alt: "User Avatar" %>
+      <% if @user.photo.attached? %>
+        <%= cl_image_tag @user.photo.key, class: "profile-avatar-img", alt: "User Avatar" %>
       <% else %>
         <%= image_tag "avatar-placeholder.png", class: "profile-avatar-img", alt: "Default Avatar" %>
       <% end %>
