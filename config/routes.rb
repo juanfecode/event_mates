@@ -27,5 +27,12 @@ Rails.application.routes.draw do
   # gaston
   get "/groups/:id", to: "groups#show", as: "group"
   get "/requests", to: "requests#index"
+  delete "/requests/:id/cancel_request", to: "requests#cancel_request", as: "cancel_request"
+  patch "/requests/:id/reject_request", to: "requests#reject_request", as: "reject_request"
+  patch "/requests/:id/remove_member", to: "requests#remove_member", as: "remove_member"
+  post "/groups/:id/requests", to: "requests#ask_to_join", as: "ask_to_join"
+  patch "/groups/:id/requests", to: "requests#ask_to_rejoin", as: "ask_to_rejoin"
+  get "/groups/:id/request_form", to: "requests#request_form", as: "request_form"
+  patch "/requests/:id/approve_request", to: "requests#approve_request", as: "approve_request"
 
 end

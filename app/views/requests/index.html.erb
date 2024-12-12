@@ -5,6 +5,7 @@
             <td>User</td>
             <td>Group ID</td>
             <td>Group Event</td>
+            <td>Message</td>
             <td>Status</td>
         </thead>
         <tbody>
@@ -14,6 +15,7 @@
                     <td><%= request.user.email %></td>
                     <td><%= request.group.id %></td>
                     <td><%= request.group.event.name %></td>
+                    <td><%= request.message %></td>
                     <td><%= request.status %></td>
                 </tr>
             <% end %>
