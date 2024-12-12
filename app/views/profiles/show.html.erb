@@ -47,40 +47,40 @@
 
 <div class="content-sections">
   <!-- Favorite Events Section -->
-  <div class="carousel-container">
+  <div class="carousel-container" data-controller="carousel">
     <h4>Favorite Events</h4>
     <div class="carousel">
-      <button class="carousel-arrow left-arrow">‹</button>
+      <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
       <div class="carousel-track-container">
-      <div class="carousel-track">
+      <div class="carousel-track" data-carousel-target="track">
         <% @user.favorite_events.each do |event| %>
-          <div class="card">
+          <div class="card" data-carousel-target="card">
             <h6><%# event.name %></h6>
             <p><%# truncate(event.description, length: 100) %></p>
           </div>
         <% end %>
       </div>
       </div>
-      <button class="carousel-arrow right-arrow">›</button>
+      <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
     </div>
   </div>
 
   <!-- Groups Section -->
-  <div class="carousel-container">
+  <div class="carousel-container" data-controller="carousel">
     <h4>Groups</h4>
     <div class="carousel">
-      <button class="carousel-arrow left-arrow">‹</button>
+      <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
       <div class="carousel-track-container">
-        <div class="carousel-track">
+        <div class="carousel-track" data-carousel-target="track">
           <% @user.groups.each do |group| %>
-            <div class="card">
+            <div class="card" data-carousel-target="card">
               <h6><%= group.bio %></h6>
               <p><%# truncate(group.description, length: 100) %></p>
             </div>
           <% end %>
         </div>
       </div>
-      <button class="carousel-arrow right-arrow">›</button>
+      <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
     </div>
   </div>
 </div>
