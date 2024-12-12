@@ -1,0 +1,16 @@
+<div class="container mt-3 p-3 border shadow">
+    <div style="height: 500px; overflow-y: auto;" data-controller="chat-scroll">
+        <% @messages.each do |message| %>
+        <div id="message<%= message.id %>" data-chat-scroll-target="messages">
+            <p class="small"><strong><%= message.user.email %>:</strong></p>
+            <p><%= message.message %></p>
+        </div>
+        <% end %>
+    </div>
+    <div>
+        <%= simple_form_for [@group, @message], url: create_message_path, html: {class: "d-flex"} do |f| %>
+            <%= f.input :message, label: false, wrapper_html: {class: "flex-grow-1"} %>
+            <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+        <% end %>
+    </div>
+</div>
