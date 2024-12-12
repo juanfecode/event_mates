@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "favorites/create"
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -18,7 +19,11 @@ Rails.application.routes.draw do
 
 
   # juanfe
-  resources :events, only: %i[index show new create update]
+  resources :events, only: %i[index show new create update] do
+  #favorites
+    resources :favorite_events, only: %i[create destroy]
+  end
+
 
   # kyle
   get "profiles/:id", to: "profiles#show", as: "profile"
