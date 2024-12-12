@@ -54,8 +54,8 @@
       <div class="carousel-track-container">
       <div class="carousel-track" data-carousel-target="track">
         <% @user.favorite_events.each do |event| %>
-          <div class="card" data-carousel-target="card">
-            <h6><%# event.name %></h6>
+          <div class="carousel-card" data-carousel-target="card">
+            <h6><%# event.id %></h6>
             <p><%# truncate(event.description, length: 100) %></p>
           </div>
         <% end %>
@@ -73,7 +73,7 @@
       <div class="carousel-track-container">
         <div class="carousel-track" data-carousel-target="track">
           <% @user.groups.each do |group| %>
-            <div class="card" data-carousel-target="card">
+            <div class="carousel-card" data-carousel-target="card">
               <h6><%= group.bio %></h6>
               <p><%# truncate(group.description, length: 100) %></p>
             </div>

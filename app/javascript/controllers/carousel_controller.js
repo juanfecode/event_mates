@@ -15,7 +15,7 @@ export default class extends Controller {
   // Position cards next to each other
   positionCards() {
     this.cardTargets.forEach((card, index) => {
-      card.style.left = `${index * 12}%`;
+      card.style.left = `${index * (this.cardWidth + 78)}px`;
     })
   }
 
@@ -28,7 +28,7 @@ export default class extends Controller {
 
   // Update Track position
   updateTrackPosition() {
-    this.trackTarget.style.transform = `translateX(-${this.currentIndex * 38}%)`;
+    this.trackTarget.style.transform = `translateX(-${this.currentIndex * (this.cardWidth +78)}px)`;
     this.updateArrowState();
   }
 
