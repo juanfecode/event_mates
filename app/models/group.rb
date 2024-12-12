@@ -18,4 +18,17 @@ class Group < ApplicationRecord
   def owner
     user
   end
+
+  def owner?(check_user)
+    user == check_user
+  end
+
+  # @group.requests.where(user: helpers.current_user)
+  # def requested_by_user?(check_user)
+  #   requests.where(user: check_user).any?
+  # end
+
+  # def accepted_request_by?(check_user)
+  #   requests.where(user: check_user).where(status: "accepted").any?
+  # end
 end

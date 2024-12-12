@@ -1,0 +1,18 @@
+<%# Modal Nico %>
+<div class="modal fade" data-controller="remote-modal" data-remote-modal-close-on-submit-value="<%= close_on_submit %>" id="remoteModal" tabindex="-1" aria-labelledby="remoteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable <%= size %>">
+    <div class="modal-content">
+      <% if show_header %>
+        <div class="modal-header border-0 d-sm-flex align-items-center justify-content-end">
+          <% if title? %>
+            <h5 class="py-2 m-0"><%= title %></h5>
+          <% end %>
+          <button id="close-remoteModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+      <% end %>
+      <div class="modal-body pt-0 <%= modal_body_class %>">
+        <%= content %>
+      </div>
+    </div>
+  </div>
+</div>

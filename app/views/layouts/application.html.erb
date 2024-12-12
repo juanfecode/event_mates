@@ -22,5 +22,6 @@
 <%= render "shared/flashes" %>
 
     <%= yield %>
+    <%= turbo_frame_tag "remote_modal" %>
   </body>
 </html>
