@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   # kyle
   get "profiles/:id", to: "profiles#show", as: "profile"
 
+
   
 
   # gaston

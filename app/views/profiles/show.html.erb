@@ -26,7 +26,12 @@
 
     <!-- Tags Section -->
     <div class="profile-info-box small-box">
-      <h5>Tags</h5>
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Tags</h5>
+        <a href="/tags" class="text-decoration-none">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </a>
+      </div>
       <hr>
       <% if @user.tags.present? %>
         <% @user.tags.each do |tag| %>
