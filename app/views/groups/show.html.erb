@@ -10,7 +10,7 @@
     <div class="">
         <%= render RequestsButtonComponent.new(@group) unless @group.owner?(current_user) %> 
         <%# correct path %>
-        <%= link_to "Group Chat", root_path,
+        <%= link_to "Group Chat", messages_path,
                                   class: "#{current_user == @group.owner ? "" : "ms-2" } btn btn-primary btn-sm rounded-pill" if current_user.member?(@group) %>
     </div>
     <%= render "shared/requests", outgoing_requests: @outgoing_requests, incoming_requests: @incoming_requests if current_user == @group.owner %>

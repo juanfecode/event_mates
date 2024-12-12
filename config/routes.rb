@@ -41,4 +41,7 @@ Rails.application.routes.draw do
   get "/groups/:id/request_form", to: "requests#request_form", as: "request_form"
   patch "/requests/:id/approve_request", to: "requests#approve_request", as: "approve_request"
 
+  get "/groups/:id/messages", to: "group_messages#index", as: "messages"
+  post "/groups/:id/messages", to: "group_messages#create_message", as: "create_message"
+
 end
