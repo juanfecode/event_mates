@@ -30,6 +30,8 @@ Rails.application.routes.draw do
 
   # gaston
   get "/groups/:id", to: "groups#show", as: "group"
+  get "/groups/:id/invite", to: "groups#invite", as: "invite_group"
+  post "/groups/:id/invite", to: "groups#invite_requests", as: "invite_requests"
   get "/requests", to: "requests#index"
   delete "/requests/:id/cancel_request", to: "requests#cancel_request", as: "cancel_request"
   patch "/requests/:id/reject_request", to: "requests#reject_request", as: "reject_request"

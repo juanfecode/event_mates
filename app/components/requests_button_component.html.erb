@@ -10,6 +10,9 @@
         regarding group interactions to ensure a positive experience for everyone.</em></p>
     <%= button_to "Ask to re-join", ask_to_rejoin_path(@group.requests.find_by(user: helpers.current_user)), method: :patch, data: { turbo_frame: "remote_modal" }, class: "btn btn-primary btn-sm rounded-pill" %>
 
+<% elsif @group.requests.where(user: helpers.current_user).where(status: "pending_join").any? %>
+    <p class="small text-secondary">You have been invited to this group</p>
+    <%= button_to "Accept invite", approve_request_path(@group.requests.find_by(user: helpers.current_user)), method: :patch, class: "btn btn-success btn-sm rounded-pill" %>
 <% else %>
     <p class="small text-secondary"><em>Request already sent. Waiting for approval.</em></p>
     <%= button_to "Cancel my request", cancel_request_path(@group.requests.find_by(user: helpers.current_user)), method: :delete, class: "btn btn-secondary btn-sm rounded-pill" %>
