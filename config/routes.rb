@@ -22,7 +22,9 @@ Rails.application.routes.draw do
 
   # kyle
   get "profiles/:id", to: "profiles#show", as: "profile"
-
+  get "tags", to: "tags#index", as:"tags"
+  post "tags/:tag_id", to: "tags#add_tag", as: "add_tag"
+  delete "tags/:tag_id", to: "tags#remove_tag", as: "remove_tag"
 
   
 
