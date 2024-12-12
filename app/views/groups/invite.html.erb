@@ -1,10 +1,9 @@
 <div class="container mt-3 p-3 border shadow">
-    <%= simple_form_for @group do |f| %>
-        <%= f.input :bio %>
-        <%= f.hidden_field :user_id, value: current_user.id %>
-        <%= f.hidden_field :event_id, value: @event.id %>
+    <% if @group.owner?(current_user) %>
+    <%= simple_form_for @group, url: invite_requests_path, method: :post do |f| %>
         <!-- Users as Cards -->
         <div class="row">
+            <p><strong>Invite more users to your group:</strong></p>
             <% @users.each do |user| %>
             <div class="col-md-4">
                 <div class="card mb-3" style="width: 18rem;">
@@ -28,6 +27,9 @@
         </div>
     
         <!-- Submit Button -->
-        <%= f.submit 'Create Group', class: 'btn btn-primary' %>
+        <%= f.submit 'Invite to group', class: 'btn btn-primary' %>
+    <% end %>
+    <% else %>
+        You are not allowed
     <% end %>
 </div>
