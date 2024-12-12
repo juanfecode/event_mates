@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   resources :events, only: %i[index show new create update]
 
   # kyle
+  get "profiles/:id", to: "profiles#show", as: "profile"
+
 
 
 
