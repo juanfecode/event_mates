@@ -1,0 +1,17 @@
+<% if @group.requests.where(user: helpers.current_user).empty? %>
+    <%= link_to "Ask to join", request_form_path(type: "ask"), data: { turbo_frame: "remote_modal" }, class: "btn btn-primary btn-sm rounded-pill" %>
+
+<% elsif @group.requests.where(user: helpers.current_user).where(status: "accepted").any? %>
+    <%= button_to "Leave group", cancel_request_path(@group.requests.find_by(user: helpers.current_user)), method: :delete, class: "btn btn-secondary btn-sm rounded-pill" %>
+
+<% elsif @group.requests.where(user: helpers.current_user).where(status: "removed").any? %>
+    <p class="small text-secondary"><em>You have been removed from this group by the group owner. If you believe this was a misunderstanding, you can request to rejoin. Please review and follow our
+        <%= link_to "community policies", root_path %>
+        regarding group interactions to ensure a positive experience for everyone.</em></p>
+    <%= button_to "Ask to re-join", ask_to_rejoin_path(@group.requests.find_by(user: helpers.current_user)), method: :patch, data: { turbo_frame: "remote_modal" }, class: "btn btn-primary btn-sm rounded-pill" %>
+
+<% else %>
+    <p class="small text-secondary"><em>Request already sent. Waiting for approval.</em></p>
+    <%= button_to "Cancel my request", cancel_request_path(@group.requests.find_by(user: helpers.current_user)), method: :delete, class: "btn btn-secondary btn-sm rounded-pill" %>
+<% end %>
+    

@@ -15,10 +15,11 @@
           </div>
         </form>
       </div>
+      <%#  poner el formulario en un turbo_frame %>
       <p class="small ms-3"><%= footer %></p>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <%= button_to "Confirm", path, method: :get, class: "btn btn-primary" %>
+        <%= button_to "Confirm", path, method: :post, class: "btn btn-primary" %>
       </div>
     </div>
   </div>
