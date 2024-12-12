@@ -21,6 +21,5 @@ class Event < ApplicationRecord
   validates :date, uniqueness: { scope: :name }
   validates :name, presence: true
   validates :name, uniqueness: { scope: :date }
-  validates :capacity, presence: true
  
 end
