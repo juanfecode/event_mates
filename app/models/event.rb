@@ -11,6 +11,9 @@ class Event < ApplicationRecord
   has_many :tags, through: :event_tags
   has_many :requests
   has_many :groups
+  has_many :favorite_events, dependent: :destroy
+  has_many :favorited_by, through: :favorite_events, source: :user
+
 
   # Validations
   validates :location, presence: true
@@ -19,5 +22,5 @@ class Event < ApplicationRecord
   validates :name, presence: true
   validates :name, uniqueness: { scope: :date }
   validates :capacity, presence: true
-
+ 
 end
