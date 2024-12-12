@@ -1,19 +1,88 @@
 <div class="profile">
   <div class="profile-banner">
   <%= image_tag(asset_path('banner-placeholder.jpg'), alt: 'Cover Banner', class: 'cover-banner') %>
-    <div class="avatar-large">
+    <div class="profile-avatar">
       <% if current_user.photo.attached? %>
-        <%= image_tag current_user.photo.variant(resize_to_fit: [150, 150]), class: "avatar-img", alt: "User Avatar" %>
+        <%= cl_image_tag current_user.photo.key, class: "profile-avatar-img", alt: "User Avatar" %>
       <% else %>
-        <%= image_tag "avatar-placeholder.png", class: "avatar-img", alt: "Default Avatar" %>
+        <%= image_tag "avatar-placeholder.png", class: "profile-avatar-img", alt: "Default Avatar" %>
       <% end %>
     </div>
-  </div>
-  <div class="profile-info">
-    <h1><%= @user.first_name %> <%= @user.last_name %></h1>
-    <div class="profile-details">
-      <h6><%= @user.dob %></h6>
-      <p><%# @user.bio %></p>
+    <div class="name">
+      <h1><%= @user.first_name.capitalize! %> <%= @user.last_name.capitalize! %></h1>
     </div>
   </div>
+
+  <!-- User Information -->
+  <div class="profile-info-container">
+    
+    <!-- User Details Section -->
+    <div class="profile-info-box small-box">
+      <h5>Details</h5>
+      <hr>
+      <h6>Age: <%= calculate_age(@user.dob) %></h6>
+      <h6>Hometown: <%# @user.hometown || "Not provided" %></h6>
+    </div>
+
+    <!-- Tags Section -->
+    <div class="profile-info-box small-box">
+      <h5>Tags</h5>
+      <hr>
+      <% if @user.tags.present? %>
+        <% @user.tags.each do |tag| %>
+          <span class="tag"><%= tag.name %></span>
+        <% end %>
+      <% else %>
+        <p>No tags available.</p>
+      <% end %>
+    </div>
+
+    <!-- Bio Section -->
+    <div class="profile-info-box large-box">
+      <h5>Bio</h5>
+      <hr>
+      <p><%# @user.bio.present? ? @user.bio : "No bio available." %></p>
+    </div>
+  </div>
+
+<div class="content-sections">
+  <!-- Favorite Events Section -->
+  <div class="carousel-container">
+    <h4>Favorite Events</h4>
+    <div class="carousel">
+      <button class="carousel-arrow left-arrow">‹</button>
+      <div class="carousel-track-container">
+      <div class="carousel-track">
+        <% @user.favorite_events.each do |event| %>
+          <div class="card">
+            <h6><%# event.name %></h6>
+            <p><%# truncate(event.description, length: 100) %></p>
+          </div>
+        <% end %>
+      </div>
+      </div>
+      <button class="carousel-arrow right-arrow">›</button>
+    </div>
+  </div>
+
+  <!-- Groups Section -->
+  <div class="carousel-container">
+    <h4>Groups</h4>
+    <div class="carousel">
+      <button class="carousel-arrow left-arrow">‹</button>
+      <div class="carousel-track-container">
+        <div class="carousel-track">
+          <% @user.groups.each do |group| %>
+            <div class="card">
+              <h6><%= group.bio %></h6>
+              <p><%# truncate(group.description, length: 100) %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <button class="carousel-arrow right-arrow">›</button>
+    </div>
+  </div>
+</div>
+
 </div>
