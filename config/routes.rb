@@ -18,11 +18,13 @@ Rails.application.routes.draw do
 
 
   # juanfe
-
+  resources :events, only: %i[index show new create update]
 
   # kyle
+  get "profiles/:id", to: "profiles#show", as: "profile"
 
-  
+
+
 
   # gaston
   get "/groups/:id", to: "groups#show", as: "group"
