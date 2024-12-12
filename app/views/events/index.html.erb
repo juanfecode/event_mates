@@ -1,0 +1,23 @@
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);">
+  <div class="container align-center">
+    <h1><strong>EventMates</strong></h1>
+    <p><strong>Your Gateway to Shared Experiences</strong>!</p>
+    <%= render "shared/search_bar"%>
+  </div>
+</div>
+
+
+  <div class="row mt-4 d-flex justify-content-center">
+    <% @events.each do |event| %>
+      <div class="col-2 card-event text-center m-2 rounded-5">
+        <%= link_to event_path(event), class: "card-event text-decoration-none" do %>
+          <img src="https://middermusic.com/wp-content/uploads/2022/10/90s-rock-bands.jpg" class="rounded-4 img-fluid" />
+          <div class="p-2">
+            <h2 class="h6"><%= event.name %></h2>
+            <p class="mb-1"><%= event.date.strftime("%B %d, %Y") %></p>
+            <p class="mb-0"><%= event.location %></p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+</div>
