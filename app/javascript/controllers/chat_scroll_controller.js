@@ -4,6 +4,6 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["messages"]
   connect() {
-    this.messagesTarget.parentNode.lastElementChild.scrollIntoView(); 
+    this.messagesTarget.parentNode.lastElementChild.scrollIntoView({ behavior: 'smooth' }); 
   }
 }
