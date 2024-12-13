@@ -61,10 +61,23 @@
       <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
       <div class="carousel-track-container">
       <div class="carousel-track" data-carousel-target="track">
-        <% @user.favorite_events.each do |event| %>
+        <% @user.favorite_events.each do |fv| %>
+          <% event = Event.find(fv[:event_id]) %>
           <div class="carousel-card" data-carousel-target="card">
-            <h6><%# event.id %></h6>
-            <p><%# truncate(event.description, length: 100) %></p>
+            <div class="carousel-card-content">
+              <% if event.image.attached? %>
+                <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
+              <% else %>
+                <%= image_tag "default-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
+              <% end %>
+              <div class="carousel-card-info">
+                <h6><%= event.name %></h6>
+                <p><%= event.date %></p>
+              </div>
+              <div class="carousel-card-info-2">
+                <p><%= event.location %></p>
+              </div>
+            </div>
           </div>
         <% end %>
       </div>
@@ -81,9 +94,22 @@
       <div class="carousel-track-container">
         <div class="carousel-track" data-carousel-target="track">
           <% @user.groups.each do |group| %>
+            <% event = Event.find(group[:event_id]) %>
             <div class="carousel-card" data-carousel-target="card">
-              <h6><%= group.bio %></h6>
-              <p><%# truncate(group.description, length: 100) %></p>
+              <div class="carousel-card-content">
+                <% if event.image.attached? %>
+                  <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
+                <% else %>
+                  <%= image_tag "default-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
+                <% end %>
+                <div class="carousel-card-info">
+                  <h6><%= event.name %></h6>
+                  <p><%= event.date %></p>
+                </div>
+                <div class="carousel-card-info-2">
+                  <p><%= group.bio %></p>
+                </div>
+              </div>
             </div>
           <% end %>
         </div>
