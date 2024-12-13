@@ -1,5 +1,6 @@
 require "selenium-webdriver"
 require "nokogiri"
+require_relative "events_csv_service" 
 
 class JambaseScraperService
   BASE_URL = "https://www.jambase.com/concerts/ar/~/concerts-in-buenos-aires"
@@ -12,7 +13,10 @@ class JambaseScraperService
     options.add_argument('--disable-dev-shm-usage') # Useful for Docker
 
     driver = Selenium::WebDriver.for(:chrome, options: options)
-    events = []
+    
+    # Load existing events from the CSV
+    csv_path = "storage/events.csv"
+    events = EventsCsvService.load_from_csv(csv_path)
 
     begin
       # Navigate to the main page
@@ -27,7 +31,7 @@ class JambaseScraperService
 
       # Extract event links
       event_elements = driver.find_elements(css: ".thumbnail")
-      event_links = event_elements.first(25).map { |el| el.attribute("href") } # Limit to 25
+      event_links = event_elements.first(35).map { |el| el.attribute("href") } # Limit to 35
 
       # Iterate over each event link
       event_links.each_with_index do |event_link, index|
@@ -81,7 +85,8 @@ class JambaseScraperService
       # Ensure the browser is always closed
       driver.quit
     end
-
+    # Save to CSV
+    EventsCsvService.save_to_csv(events)
     events
   end
 end
