@@ -1,5 +1,6 @@
 require "selenium-webdriver"
 require "nokogiri"
+# you may need to run: brew install chromedriver 
 
 class BandsintownScraperService
   BASE_URL = "https://www.bandsintown.com/c/buenos-aires-argentina?came_from=253&utm_medium=web&utm_source=city_page&utm_campaign=top_event&sort_by_filter=Number+of+RSVPs&concerts=true"
