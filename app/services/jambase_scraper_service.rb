@@ -3,7 +3,7 @@ require "nokogiri"
 require_relative "events_csv_service" 
 
 class JambaseScraperService
-  BASE_URL = "https://www.jambase.com/concerts/ar/~/concerts-in-buenos-aires"
+  BASE_URL = "https://www.jambase.com/concerts/ar/~/concerts-in-buenos-aires/page/3"
 
   def self.scrape_events
     options = Selenium::WebDriver::Chrome::Options.new
@@ -52,12 +52,19 @@ class JambaseScraperService
         event_description = full_description[0, 500]
         event_location = event_doc.at_css('div.mb-2 strong')&.text&.strip
         event_address = event_doc.css('ul.list-unstyled.address-structured li').map(&:text).map(&:strip).join(", ")
+        event_image_element = event_doc.at_css('.media-img img.cld-responsive')
+        event_image = event_image_element&.[]('src')
+
+        # Handle the date that sometimes causes errors
         event_date_elements = event_doc.css('ul.list-inline.list-inline-delimited li')
         event_date_texts = event_date_elements.map(&:text).map(&:strip)
         # DEBUG puts "Extracted event_date_text: #{event_date_texts[2].inspect}"
-        event_date = Date.strptime(event_date_texts[2], "%b %d, %Y").strftime("%Y-%m-%d") if event_date_texts
-        event_image_element = event_doc.at_css('img.cld-responsive')
-        event_image = event_image_element&.[]('src')
+        begin
+          event_date = Date.strptime(event_date_texts[2], "%b %d, %Y").strftime("%Y-%m-%d") if event_date_texts[2]
+        rescue Date::Error, NoMethodError => e
+          puts "Skipping event due to invalid date format or missing data: #{e.message}"
+          next # Skip to the next iteration of the loop
+        end
 
         # Prevent duplicates... THIS WILL NEED TO BE UPDATED
         if events.any? { |e| e[:name] == event_name && e[:date] == event_date }
@@ -68,6 +75,7 @@ class JambaseScraperService
         # Store the event in an array... THIS WILL NEED TO BE UPDATED
         events << {
           name: event_name,
+          link: event_link,
           description: event_description,
           location: event_location,
           date: event_date,

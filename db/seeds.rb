@@ -36,8 +36,21 @@ band_names = [
   "The Weeknd", "Metallica", "Dua Lipa", "Billie Eilish", "Maroon 5"
 ]
 
-# Create 10 events, each with a real location and band name
-events = 10.times.map do |i|
+# WE NEED TO DO SOME MIGRATIONS TO ADD SOME COLUMNS TO THE EVENTS TABLE
+# Create events 
+csv_path = "storage/events.csv"
+events = EventsCsvService.load_from_csv(csv_path)
+events.each do |event| {
+  Event.create!(
+    name: event[:name],
+    link: event[:link],
+    description: event[:description],
+    location: event[:location],
+    address: event[:address],
+    date: event[:date],
+    image: event[:image]
+  )
+}  
   Event.create!(
     name: band_names[i],
     location: locations.sample,

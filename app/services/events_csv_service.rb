@@ -5,10 +5,11 @@ class EventsCsvService
   def self.save_to_csv(events)
     csv_path = "storage/events.csv"
     CSV.open(csv_path, "wb") do |csv|
-      csv << ["Name", "Description", "Location", "Address", "Date", "Image"]
+      csv << ["Name", "Link", "Description", "Location", "Address", "Date", "Image"]
       events.each do |event|
         csv << [
           event[:name],
+          event[:link],
           event[:description],
           event[:location],
           event[:address],
@@ -27,6 +28,7 @@ class EventsCsvService
     CSV.foreach(csv_path, headers: true) do |row|
       events << {
         name: row["Name"],
+        link: row["Link"],
         description: row["Description"],
         location: row["Location"],
         address: row["Address"],
