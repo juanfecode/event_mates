@@ -1,3 +1,6 @@
+require "uri"
+require "open-uri"
+
 # Clear the database to avoid duplicates
 Event.destroy_all
 Tag.destroy_all
@@ -36,30 +39,27 @@ band_names = [
   "The Weeknd", "Metallica", "Dua Lipa", "Billie Eilish", "Maroon 5"
 ]
 
-# WE NEED TO DO SOME MIGRATIONS TO ADD SOME COLUMNS TO THE EVENTS TABLE
 # Create events 
 csv_path = "storage/events.csv"
-events = EventsCsvService.load_from_csv(csv_path)
-events.each do |event| {
-  Event.create!(
+csv_events = EventsCsvService.load_from_csv(csv_path)
+csv_events.each do |event|
+  created_event = Event.create!(
     name: event[:name],
     link: event[:link],
     description: event[:description],
     location: event[:location],
     address: event[:address],
     date: event[:date],
-    image: event[:image]
   )
-}  
-  Event.create!(
-    name: band_names[i],
-    location: locations.sample,
-    description: "Concert by #{band_names[i]}",
-    date: Date.today + rand(1..30)
-  )
+  event_image_url = event[:image]
+  if event_image_url.present?
+    file = URI.open(event_image_url)
+    created_event.image.attach(io: file, filename: File.basename(event_image_url), content_type: file.content_type)
+  end
 end
 
 # Assign 3 random tags to each event
+events = Event.all
 events.each { |event| event.tags << tags.sample(3) }
 
 # Create 10 users
