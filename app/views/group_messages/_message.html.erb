@@ -1,0 +1,16 @@
+<% if current_user == message.user %>
+    <div class="d-flex justify-content-end" data-chat-scroll-target="messages">
+            <div id="message-<%= message.id %>" class="chatBubble" style="width: 250px;">
+                <p class="mb-0"><%= message.message %></p>
+                <p class=""><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></p>
+            </div>
+    </div>
+<% else %>
+    <div class="d-flex justify-content-start" data-chat-scroll-target="messages">
+        <div id="message-<%= message.id %>" class="mt-1 py-2 ps-4 bg-primary rounded-pill" style="width: 250px;">
+            <p class="small mb-0 text-white"><strong><%= message.user.first_name %>:</strong></p>
+            <p class="mb-0 text-white"><%= message.message %></p>
+            <p class=""><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></p>
+        </div>
+    </div>
+<% end %>

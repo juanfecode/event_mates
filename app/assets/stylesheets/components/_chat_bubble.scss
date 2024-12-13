@@ -13,6 +13,10 @@
     font-size: small;
 }
 
+.chatBubble p .date {
+    font-size: x-small;
+}
+
 .chatBubble::before {
     content: '';
     position: absolute;

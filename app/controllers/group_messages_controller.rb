@@ -11,9 +11,15 @@ class GroupMessagesController < ApplicationController
     @message.user = current_user
     @message.group = @group
     if @message.save
-      redirect_to messages_path
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.append(:messages, partial: "group_messages/message",
+                                                              locals: { message: @message })
+        end
+        format.html { redirect_to messages_path }
+      end
     else
-      redirect_to root_path
+      render :index, status: :unprocessable_entity
     end
   end
 
