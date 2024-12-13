@@ -1,14 +1,18 @@
-<div class="container mt-3 p-3 border shadow">
-    <div style="height: 500px; overflow-y: auto;" data-controller="chat-scroll">
+<div class="container w-50 mt-3 p-3 border shadow">
+    <%= turbo_stream_from "group_#{@group.id}_messages" %>
+    <div class="messages" id="messages" style="height: 500px; overflow-y: auto;">
         <% @messages.each do |message| %>
-        <div id="message<%= message.id %>" data-chat-scroll-target="messages">
-            <p class="small"><strong><%= message.user.email %>:</strong></p>
-            <p><%= message.message %></p>
-        </div>
+            <%= render "group_messages/message", message: message, user: current_user %>
         <% end %>
     </div>
-    <div>
-        <%= simple_form_for [@group, @message], url: create_message_path, html: {class: "d-flex"} do |f| %>
+    <div class="mt-3">
+        <%= simple_form_for [@group, @message],
+                                                url: create_message_path,
+                                                html: {
+                                                    class: "d-flex",
+                                                    data: { controller: "reset",
+                                                            action: "turbo:submit-end->reset#reset" }
+                                                    } do |f| %>
             <%= f.input :message, label: false, wrapper_html: {class: "flex-grow-1"} %>
             <%= f.submit "Send", class: "btn btn-primary mb-3" %>
         <% end %>

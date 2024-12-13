@@ -48,6 +48,8 @@ gem "sassc-rails"
 gem "cloudinary"
 gem "selenium-webdriver"
 
+gem "solid_cable"
+
 group :development, :test do
   gem "dotenv-rails"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
