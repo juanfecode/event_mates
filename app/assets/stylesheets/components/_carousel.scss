@@ -37,14 +37,72 @@
 }
 
 .carousel-card {
+  background-size: cover;
+  background-position: center;
   flex: 0 0 calc((90% - 40px) / 3); 
   max-width: calc((90% - 40px) / 3);
+  max-height: 250px;
   min-height: 100%;
   background: white;
-  padding: 20px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-card-content {
+  position: relative;
+}
+
+.carousel-card-img {
+  height: 80%;
+  width: 100%;
+  object-fit: cover; /* Ensures the image covers the card while maintaining aspect ratio */
+  border-radius: 10px; /* Matches the card's rounded corners */
+  z-index: 1; 
+}
+
+.carousel-card-info {
+  position: absolute; /* Layer content on top of the image */
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay */
+  padding: 10px;
+  z-index: 2; /* Ensure content is above the image */
+  text-align: left;
+  border-radius: 10px;
+}
+
+.carousel-card-info h6 {
+  font-size: 1.2rem;
+  color: gray;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8)
+}
+
+.carousel-card-info p {
+  font-size: 0.8 rem;
+  color: lightgray;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8)
+}
+
+.carousel-card-info-2 {
+  position: absolute; /* Layer content on top of the image */
+  bottom: 0;
+  left: 0;
+  height: 22%;
+  width: 100%;
+  color: white;
+  padding: 10px;
+  z-index: 2; /* Ensure content is above the image */
+  text-align: left;
+  border-radius: 10px;
+}
+
+.carousel-card-info-2 p {
+  font-size: 0.8 rem;
+  color: lightgray;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8)
 }
 
 .carousel-arrow {
