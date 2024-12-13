@@ -13,6 +13,7 @@ class Event < ApplicationRecord
   has_many :groups
   has_many :favorite_events, dependent: :destroy
   has_many :favorited_by, through: :favorite_events, source: :user
+  has_one_attached :image
 
 
   # Validations

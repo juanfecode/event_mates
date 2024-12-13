@@ -58,6 +58,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_13_165631) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "link"
+    t.string "address"
   end
 
   create_table "favorite_events", force: :cascade do |t|
