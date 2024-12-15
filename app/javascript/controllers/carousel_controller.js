@@ -11,6 +11,7 @@ export default class extends Controller {
     this.positionCards();
     this.updateArrowState();
     this.addResizeListener();
+    this.makeCardsClickable();
   }
 
   // Dynamically calculate card width and gap
@@ -69,6 +70,18 @@ export default class extends Controller {
       this.updateDimensions(); // Recalculate dimensions
       this.positionCards(); // Reposition cards
       this.updateTrackPosition(); // Update track translation
+    });
+  }
+
+  // Make each card clickable and navigate to the URL in data-url
+  makeCardsClickable() {
+    this.cardTargets.forEach((card) => {
+      card.addEventListener("click", () => {
+        const url = card.dataset.url; // Extract URL from data-url attribute
+        if (url) {
+          window.location.href = url; // Navigate to the URL
+        }
+      });
     });
   }
 }
