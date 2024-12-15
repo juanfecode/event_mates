@@ -84,7 +84,7 @@ class JambaseScraperService
           image: event_image
         }
 
-        # Debug output... THIS WILL BE DELETED
+        # Debug output... 
         puts "#{index + 1}. #{event_name}"
         puts "\tDate: #{event_date}"
         puts "\tLocation: #{event_location}"
