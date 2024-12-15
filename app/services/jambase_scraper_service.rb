@@ -78,6 +78,7 @@ class JambaseScraperService
           link: event_link,
           description: event_description,
           location: event_location,
+          address: event_address,
           date: event_date,
           image: event_image
         }

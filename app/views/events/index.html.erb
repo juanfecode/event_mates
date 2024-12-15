@@ -10,18 +10,101 @@
   </div>
 </div>
 
-
-  <div class="row mt-4 d-flex justify-content-center">
-    <% @events.each do |event| %>
-      <div class="col-2 card-event text-center m-2 rounded-5">
-        <%= link_to event_path(event), class: "card-event text-decoration-none" do %>
-          <img src="https://middermusic.com/wp-content/uploads/2022/10/90s-rock-bands.jpg" class="rounded-4 img-fluid" />
-          <div class="p-2">
-            <h2 class="h6"><%= event.name %></h2>
-            <p class="mb-1"><%= event.date.strftime("%B %d, %Y") %></p>
-            <p class="mb-0"><%= event.location %></p>
-          </div>
-        <% end %>
+<div class="content-sections">
+  <!-- Events This Week Section -->
+  <div class="carousel-container" data-controller="carousel">
+    <h4>Events this week</h4>
+    <div class="carousel">
+      <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
+      <div class="carousel-track-container">
+        <div class="carousel-track" data-carousel-target="track">
+          <% events_this_week = @events.where('date <= ?', Date.today + 7).order(:date) %>
+          <% events_this_week.each do |event| %>
+            <div class="carousel-card" data-carousel-target="card" data-url="<%= event_path(event) %>">
+              <div class="carousel-card-content">
+                <% if event.image.attached? %>
+                  <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
+                <% else %>
+                  <%= image_tag "default-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
+                <% end %>
+                <div class="carousel-card-info">
+                  <h6><%= event.name %></h6>
+                  <p><%= event.date %></p>
+                </div>
+                <div class="carousel-card-info-2">
+                  <p><%= event.location %></p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
       </div>
-    <% end %>
+      <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
+    </div>
+  </div>
+
+  <!-- Events w/ Rock Tag Section -->
+  <div class="carousel-container" data-controller="carousel">
+    <h4>Rock Events</h4>
+    <div class="carousel">
+      <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
+      <div class="carousel-track-container">
+        <div class="carousel-track" data-carousel-target="track">
+          <% events_rock_tag = @events.joins(:tags).where(tags: { name: 'rock' }).order(:date) %>
+          <% events_rock_tag.each do |event| %>
+            <div class="carousel-card" data-carousel-target="card" data-url="<%= event_path(event) %>">
+              <div class="carousel-card-content">
+                <% if event.image.attached? %>
+                  <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
+                <% else %>
+                  <%= image_tag "default-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
+                <% end %>
+                <div class="carousel-card-info">
+                  <h6><%= event.name %></h6>
+                  <p><%= event.date %></p>
+                </div>
+                <div class="carousel-card-info-2">
+                  <p><%= event.location %></p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
+    </div>
+  </div>
+
+ <!-- Events w/ Rock Tag Section -->
+  <div class="carousel-container" data-controller="carousel">
+    <h4>Electronic Events</h4>
+    <div class="carousel">
+      <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
+      <div class="carousel-track-container">
+        <div class="carousel-track" data-carousel-target="track">
+          <% events_rock_tag = @events.joins(:tags).where(tags: { name: 'electronic' }).order(:date) %>
+          <% events_rock_tag.each do |event| %>
+            <div class="carousel-card" data-carousel-target="card" data-url="<%= event_path(event) %>">
+              <div class="carousel-card-content">
+                <% if event.image.attached? %>
+                  <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
+                <% else %>
+                  <%= image_tag "default-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
+                <% end %>
+                <div class="carousel-card-info">
+                  <h6><%= event.name %></h6>
+                  <p><%= event.date %></p>
+                </div>
+                <div class="carousel-card-info-2">
+                  <p><%= event.location %></p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
+    </div>
+  </div>
 </div>
+
