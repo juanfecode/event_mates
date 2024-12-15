@@ -25,20 +25,6 @@ tag_names = [
 
 tags = tag_names.map { |name| Tag.create!(name: name) }
 
-# Create 10 real-world locations
-locations = [
-  "Madison Square Garden, New York", "Wembley Stadium, London",
-  "Sydney Opera House, Sydney", "Red Rocks Amphitheatre, Colorado",
-  "Tokyo Dome, Tokyo", "O2 Arena, London", "Hollywood Bowl, Los Angeles",
-  "Mercedes-Benz Arena, Berlin", "Olympic Stadium, Montreal", "Estadio Azteca, Mexico City"
-]
-
-# Create 10 active band names as event names
-band_names = [
-  "Coldplay", "Imagine Dragons", "BTS", "Foo Fighters", "Arctic Monkeys",
-  "The Weeknd", "Metallica", "Dua Lipa", "Billie Eilish", "Maroon 5"
-]
-
 # Create events 
 csv_path = "storage/events.csv"
 csv_events = EventsCsvService.load_from_csv(csv_path)
