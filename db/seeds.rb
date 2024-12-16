@@ -46,45 +46,39 @@ rescue StandardError => e
   []
 end
 
-def generate_user_details
+def generate_user_bio(user)
   client = OpenAI::Client.new
 
-  # Construct the prompt to generate user details
+  # Construct the prompt using user details
   main_prompt = <<~PROMPT
-    Generate a realistic first name, last name, date of birth (DOB), phone number, and hometown for a fictional user.
-    - The date of birth should be a realistic date for someone between 18 and 40 years old.
-    - The phone number should be in a standard format like (123) 456-7890.
-    - Provide all the details in this format: FirstName, LastName, DOB (YYYY-MM-DD), PhoneNumber, Hometown.
-    - Provide only the details requested. do respond with something like "Sure! here is the information for a fictional user:".
+    Create a short, engaging 3-sentence bio for a user based on the following details:
+    - First Name: #{user.first_name}
+    - Last Name: #{user.last_name}
+    - Hometown: #{user.hometown}
+    - Age: #{(Date.today.year - user.dob.year)} (approximate age based on DOB)
+    - Interests: Create a personality and fictional hobbies for this user.
+
+    The bio should sound natural and relatable, reflecting a friendly tone. Do not include placeholder text like "First Name" or "Hometown." Just output the bio directly.
   PROMPT
 
   # Make API call to GPT-4
   response = client.chat(
     parameters: {
-      model: "gpt-4o-mini", 
+      model: "gpt-4o-mini",
       messages: [
-        { role: "system", content: "You are a helpful assistant for generating realistic user information." },
+        { role: "system", content: "You are a creative assistant for generating short user bios." },
         { role: "user", content: main_prompt }
       ],
       temperature: 0.7
     }
   )
 
-  # Parse the response
+  # Parse and return the bio
   response_text = response.dig("choices", 0, "message", "content").to_s.strip
-  details = response_text.split(",").map(&:strip)
-
-  # Map details into a hash
-  {
-    first_name: details[0],
-    last_name: details[1],
-    dob: details[2],
-    phone_number: details[3],
-    hometown: details[4]
-  }
+  response_text
 rescue StandardError => e
-  puts "Error generating user details: #{e.message}"
-  {}
+  puts "Error generating bio for #{user.first_name} #{user.last_name}: #{e.message}"
+  "A friendly user from #{user.hometown}."
 end
 
 # List of 20 image prompts
@@ -177,24 +171,25 @@ end
 
 # Create 30 users with details and images
 users = 30.times.map do |i|
-  # Generate user details
-  user_details = generate_user_details
-  next unless user_details.present?
 
   # Create the user
   user = User.create!(
     email: "user#{i + 1}@example.com",
     password: "password123",
     password_confirmation: "password123",
-    first_name: user_details[:first_name],
-    last_name: user_details[:last_name],
-    dob: user_details[:dob],
-    phone_number: user_details[:phone_number],
-    hometown: user_details[:hometown]
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    dob: Faker::Date.birthday(min_age: 20, max_age: 40),
+    phone_number: Faker::PhoneNumber.phone_number,
+    hometown: "#{Faker::Address.city}, #{Faker::Address.state_abbr}"
   )
 
+  # Generate the bio
+  user.update!(bio: generate_user_bio(user))
+  sleep(1)
   # Generate and attach the image
   image_url = generate_user_image
+  
   if image_url
     file = URI.open(image_url)
     user.photo.attach(io: file, filename: "user#{i + 1}.png", content_type: "image/png")
