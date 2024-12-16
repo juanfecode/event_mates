@@ -56,7 +56,9 @@
 <div class="content-sections">
   <!-- Favorite Events Section -->
   <div class="carousel-container" data-controller="carousel">
-    <h4>Favorite Events</h4>
+    <div class="carousel-header">
+      <h4>Favorite Events</h4>
+    </div>
     <div class="carousel">
       <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
       <div class="carousel-track-container">
@@ -72,7 +74,7 @@
               <% end %>
               <div class="carousel-card-info">
                 <h6><%= event.name %></h6>
-                <p><%= event.date %></p>
+                <p><%= event.date.strftime("%b %d, %Y") %></p>
               </div>
               <div class="carousel-card-info-2">
                 <p><%= event.location %></p>
@@ -88,7 +90,9 @@
 
   <!-- Groups Section -->
   <div class="carousel-container" data-controller="carousel">
-    <h4>Groups</h4>
+    <div class="carousel-header">
+      <h4>Groups</h4>
+    </div>
     <div class="carousel">
       <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
       <div class="carousel-track-container">
@@ -104,7 +108,7 @@
                 <% end %>
                 <div class="carousel-card-info">
                   <h6><%= event.name %></h6>
-                  <p><%= event.date %></p>
+                  <p><%= event.date.strftime("%b %d, %Y") %></p>
                 </div>
                 <div class="carousel-card-info-2">
                   <p><%= group.bio %></p>

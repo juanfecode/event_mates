@@ -11,5 +11,12 @@ class Tag < ApplicationRecord
       .order("event_count DESC")
       .first
   end
+
+  def self.by_popularity
+    joins(:event_tags)
+      .select("tags.*, COUNT(event_tags.id) AS event_count")
+      .group("tags.id")
+      .order("event_count DESC")
+  end
   
 end
