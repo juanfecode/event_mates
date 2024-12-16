@@ -1,4 +1,4 @@
-<div id="group-info" class="mt-3">
+<div class="group-info mt-3">
     <p class="text-black">Bio: <%= group.bio %></p>
     <%# add link to profile %>
     <p class="text-black">Created by: <%= current_user == group.owner ? "You" : "#{group.owner.first_name} #{group.owner.last_name}" %></p>

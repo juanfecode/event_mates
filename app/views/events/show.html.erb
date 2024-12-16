@@ -1,6 +1,6 @@
 <div class="page-background">
   <div class="event-show-banner">
-    <div class="event-show-image" style="background-image: url('<%= @event.image.attached? ? cl_image_path(@event.image.key) : asset_path("default-placeholder.jpg") %>');">
+    <div class="event-show-image" style="background-image: url('<%= @event.image.attached? ? cl_image_path(@event.image.key) : asset_path("banner-placeholder.jpg") %>');">
       <div class="event-show-overlay">
         <div class="event-show-header">
           <h1><%= @event.name %></h1>
@@ -51,7 +51,7 @@
               <% if fv.photo.attached? %>
                 <%= cl_image_tag fv.photo.key, class: "event-image", alt: "#{fv.first_name} Image" %>
               <% else %>
-                <%= image_tag "default-placeholder.jpg", class: "event-image", alt: "Default Event Image" %>
+                <%= image_tag "banner-placeholder.jpg", class: "event-image", alt: "Default Event Image" %>
               <% end %>
               <div class="event-info">
                 <h6><%= fv.first_name %> <%= fv.last_name %></h6>

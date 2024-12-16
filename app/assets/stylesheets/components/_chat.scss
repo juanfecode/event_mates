@@ -10,6 +10,7 @@
     opacity: 0.5;
     margin: auto;
     width: fit-content;
+    margin-bottom: 5px;
   }
 
   .message-content {
@@ -32,4 +33,21 @@
     background: $blue;
     color: $white;
   }
+}
+
+.messages {
+  background-image: url("event-mates-logo.png");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+
+.messages-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
 }

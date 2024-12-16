@@ -45,6 +45,7 @@ class GroupsController < ApplicationController
 
   def show
     # group set by set_group
+    @event = @group.event
   end
 
   def admin
