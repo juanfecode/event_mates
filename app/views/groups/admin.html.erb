@@ -1,0 +1,7 @@
+<div class="container mt-3 p-3 border">
+    <%= turbo_frame_tag :group_content do %>
+        <%= render "shared/requests", outgoing_requests: @outgoing_requests,
+                                      incoming_requests: @incoming_requests if current_user == @group.owner %>
+    <% end %>
+</div>
+                                

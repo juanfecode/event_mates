@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
   # gaston
   get "/groups/:id", to: "groups#show", as: "group"
+  get "/groups/:id/admin", to:"groups#admin", as: "admin_group" 
   get "/groups/:id/invite", to: "groups#invite", as: "invite_group"
   post "/groups/:id/invite", to: "groups#invite_requests", as: "invite_requests"
   get "/requests", to: "requests#index"

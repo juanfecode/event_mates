@@ -1,4 +1,4 @@
-<div class="container mt-3 p-3 border shadow">
+<%= turbo_frame_tag :group_content do %>
     <% if @group.owner?(current_user) %>
     <%= simple_form_for @group, url: invite_requests_path, method: :post do |f| %>
         <!-- Users as Cards -->
@@ -31,5 +31,5 @@
     <% end %>
     <% else %>
         You are not allowed
-    <% end %>
-</div>
+    <% end %>    
+<% end %>

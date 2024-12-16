@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: %i[show]
+  before_action :set_group, only: %i[show admin]
 
   def index
   end
@@ -40,13 +40,17 @@ class GroupsController < ApplicationController
     users_invited.each do |user|
       Request.create(group: @group, event: @group.event, user: User.find(user), status: "pending_join")
     end
-    redirect_to group_path(@group)
+    redirect_to admin_group_path(@group)
   end
 
   def show
     # group set by set_group
-    @outgoing_requests = @group.outgoing_requests
+  end
+
+  def admin
+    # group set by set_group
     @incoming_requests = @group.incoming_requests
+    @outgoing_requests = @group.outgoing_requests
   end
 
   def edit

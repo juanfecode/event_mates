@@ -4,15 +4,13 @@
     <p><%= current_user.invited_or_requested?(@group) %></p>
 
     <h1>Group for <%= @group.event.name %> @ <%= @group.event.location %></h1>
-    <p class="small"> Date: <%= @group.event.date.strftime("%d %b %Y") %> </p>
-    <p>Bio: <%= @group.bio %></p>
-    <p class="">Created by: <%= current_user == @group.owner ? "You" : @group.owner.email %></p>
+    <p class="small text-black"> Date: <%= @group.event.date.strftime("%d %b %Y") %> </p>
+    
     <div class="">
         <%= render RequestsButtonComponent.new(@group) unless @group.owner?(current_user) %> 
-        <%# correct path %>
-        <%= link_to "Group Chat", messages_path,
-                                  class: "#{current_user == @group.owner ? "" : "ms-2" } btn btn-primary btn-sm rounded-pill" if current_user.member?(@group) %>
     </div>
-    <%= render "shared/requests", outgoing_requests: @outgoing_requests, incoming_requests: @incoming_requests if current_user == @group.owner %>
-    <%= render UserRequestComponent.new(@group) if @group.members.any? %>
+    <%= render "groups/menu", group: @group %>
+    <%= turbo_frame_tag :group_content do %>
+        <%= render "groups/info", group: @group %>
+    <% end %>
 </div>
