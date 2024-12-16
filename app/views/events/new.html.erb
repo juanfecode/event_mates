@@ -1,9 +1,32 @@
-<%= simple_form_for [@event] do |f| %>
-  <%= f.input :name %>
-  <%= f.input :location %>
-  <%= f.input :description %>
-  <%= f.input :date %>
-  <%= f.submit "Create Event", class: "btn btn-primary" %>
-<% end %>
+<div>
+  <div class="event-banner">
+  <%= image_tag(asset_path('banner-placeholder.jpg'), alt: 'Cover Banner', class: 'cover-banner', style: "height: 200px")%>
+   </div>
+  <div class="">
+    <%= simple_form_for [@event] do |f| %>
+      <%= f.input :name %>
+      <%= f.input :location %>
+      <%= f.input :description %>
+      <%= f.input :date %>
 
+      </div>
+      <h1 class="mt-5">Select the tags of this event</h1>
+      <div>
+        <div class="tags-container" data-controller="event-tags">
+        <div class="tags">
+          <% @tags.each do |tag| %>
+            <span
+              class="tag <%= 'active' if @event.tags.include?(tag) %>"
+              data-event-tags-target="tag"
+              data-action="click->event-tags#eventTagToggle"
+              data-tag-id="<%= tag.id %>">
+              <%= tag.name %>
+            </span>
+          <% end %>
+        </div>
 
+      </div>
+      <%= f.submit "Create Event", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

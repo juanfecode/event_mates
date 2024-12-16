@@ -22,15 +22,17 @@ Rails.application.routes.draw do
   resources :events, only: %i[index show new create update] do
   #favorites
     resources :favorite_events, only: %i[create destroy]
+  #
   end
 
 
   # kyle
   get "profiles/:id", to: "profiles#show", as: "profile"
   get "tags", to: "tags#index", as:"tags"
-  post "tags/:tag_id", to: "tags#add_tag", as: "add_tag"
-  delete "tags/:tag_id", to: "tags#remove_tag", as: "remove_tag"
-
+  post "tags/:tag_id/add_user_tag", to: "tags#add_user_tag", as: "add_user_tag"
+  delete "tags/:tag_id/remove_user_tag", to: "tags#remove_user_tag", as: "remove_user_tag"
+  post "tags/:tag_id/add_event_tag", to: "tags#add_event_tag", as: "add_event_tag"
+  delete "tags/:tag_id/remove_event_tag", to: "tags#remove_event_tag", as: "remove_event_tag"
 
 
   # gaston
