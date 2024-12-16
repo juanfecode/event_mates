@@ -5,13 +5,23 @@ class TagsController < ApplicationController
     @user_tags = current_user.tags
   end
 
-  def add_tag
+  def add_user_tag
     @tag = Tag.find_by(id: params[:tag_id])
     user_tag = UserTag.new(user: current_user, tag: @tag)
     user_tag.save
   end
 
-  def remove_tag
+  def add_event_tag
+    @tag = Tag.find(params[:tag_id])
+    session[:event_tags] << @tag
+  end
+
+  def remove_event_tag
+    @tag = Tag.find(params[:tag_id])
+    session[:event_tags].delete(session[:event_tags].find { |tag| tag["id"] == @tag.id })
+  end
+
+  def remove_user_tag
     @tag = Tag.find_by(id: params[:tag_id])
     user_tag = UserTag.find_by(user: current_user, tag: @tag)
     user_tag&.destroy
