@@ -8,7 +8,7 @@
         <%= image_tag "avatar-placeholder.png", class: "profile-avatar-img", alt: "Default Avatar" %>
       <% end %>
     </div>
-    <div class="name">
+    <div class="profile-name">
       <h1><%= @user.first_name.capitalize! %> <%= @user.last_name.capitalize! %></h1>
     </div>
   </div>
@@ -21,7 +21,7 @@
       <h5>Details</h5>
       <hr>
       <h6>Age: <%= calculate_age(@user.dob) %></h6>
-      <h6>Hometown: <%# @user.hometown || "Not provided" %></h6>
+      <h6>Hometown: <%= @user.hometown || "Not provided" %></h6>
     </div>
 
     <!-- Tags Section -->

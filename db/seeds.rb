@@ -39,11 +39,100 @@ def generate_tags_for_event(event_name)
   response = client.chat(parameters: prompt)
 
   # Parse response and return the tags as an array
-  response_text = response.dig("choices", 0, "message", "content").to_s.strip.
-  response_text.split(",").map( |tag| tag.strip.downcase)
+  response_text = response.dig("choices", 0, "message", "content").to_s.strip
+  response_text.split(",").map{ |tag| tag.strip.downcase }
 rescue StandardError => e
   puts "Error generating tags for #{event_name}: #{e.message}"
   []
+end
+
+def generate_user_details
+  client = OpenAI::Client.new
+
+  # Construct the prompt to generate user details
+  main_prompt = <<~PROMPT
+    Generate a realistic first name, last name, date of birth (DOB), phone number, and hometown for a fictional user.
+    - The date of birth should be a realistic date for someone between 18 and 40 years old.
+    - The phone number should be in a standard format like (123) 456-7890.
+    - Provide all the details in this format: FirstName, LastName, DOB (YYYY-MM-DD), PhoneNumber, Hometown.
+    - Provide only the details requested. do respond with something like "Sure! here is the information for a fictional user:".
+  PROMPT
+
+  # Make API call to GPT-4
+  response = client.chat(
+    parameters: {
+      model: "gpt-4o-mini", 
+      messages: [
+        { role: "system", content: "You are a helpful assistant for generating realistic user information." },
+        { role: "user", content: main_prompt }
+      ],
+      temperature: 0.7
+    }
+  )
+
+  # Parse the response
+  response_text = response.dig("choices", 0, "message", "content").to_s.strip
+  details = response_text.split(",").map(&:strip)
+
+  # Map details into a hash
+  {
+    first_name: details[0],
+    last_name: details[1],
+    dob: details[2],
+    phone_number: details[3],
+    hometown: details[4]
+  }
+rescue StandardError => e
+  puts "Error generating user details: #{e.message}"
+  {}
+end
+
+# List of 20 image prompts
+IMAGE_PROMPTS = [
+  "Generate a realistic photo of a female cooking in a modern kitchen. She should appear focused and relaxed, surrounded by fresh ingredients in a well-lit, warm environment. The scene should feel inviting and natural, with a clear focus on her cooking process.",
+  "Generate a realistic photo of a female reading a book in a cozy indoor setting. She should appear calm and engrossed, sitting on a comfortable chair with warm lighting. The scene should feel serene and intimate, highlighting her focus on the book.",
+  "Generate a realistic photo of a female reading a book in a cozy indoor setting. She should appear calm and engrossed, sitting on a comfortable chair with warm lighting. The scene should feel serene and intimate, highlighting her focus on the book.",
+  "Generate a realistic photo of a female hiking in a scenic outdoor environment. She should appear energetic and adventurous, surrounded by trees and mountains in natural lighting. The atmosphere should be fresh and dynamic, showcasing her love for nature.",
+  "Generate a realistic photo of a female playing guitar in a cozy studio. She should appear creative and focused, sitting on a stool with soft, natural lighting and an artistic vibe in the background.",
+  "Generate a realistic photo of a female painting on a canvas in a bright, modern studio. She should appear inspired and relaxed, with paints and brushes around her, and natural light streaming in.",
+  "Generate a realistic photo of a female working on a laptop in a trendy coffee shop. She should appear focused and productive, with a cup of coffee nearby, in a well-lit and modern setting.",
+  "Generate a realistic photo of a female jogging in a park during the morning. She should appear energetic and motivated, wearing comfortable athletic wear, surrounded by greenery.",
+  "Generate a realistic photo of a female playing with a dog in a sunny backyard. She should appear cheerful and relaxed, with the dog excitedly engaging with her.",
+  "Generate a realistic photo of a female practicing yoga in a serene indoor setting. She should appear calm and focused, performing a pose on a yoga mat with soft natural light.",
+  "Generate a realistic photo of a female shopping for groceries in a bright, modern supermarket. She should appear thoughtful and friendly, examining fresh produce in a well-organized aisle.",
+  "Generate a realistic photo of a male cooking in a stylish modern kitchen. He should appear focused and relaxed, surrounded by fresh ingredients, with warm, inviting lighting highlighting the scene.",
+  "Generate a realistic photo of a male reading a book by a large window with natural light. He should appear thoughtful and engrossed, sitting comfortably in a modern armchair.",
+  "Generate a realistic photo of a male hiking through a rugged outdoor trail. He should appear adventurous and energetic, with mountains and trees in the background under clear natural light.",
+  "Generate a realistic photo of a male playing piano in a cozy music studio. He should appear focused and creative, with soft lighting emphasizing the musical atmosphere.",
+  "Generate a realistic photo of a male building furniture in a workshop. He should appear skilled and focused, surrounded by tools and wood in a bright, practical setting.",
+  "Generate a realistic photo of a male exercising with weights in a modern gym. He should appear determined and energetic, surrounded by sleek workout equipment.",
+  "Generate a realistic photo of a male drinking coffee in a trendy urban café. He should appear relaxed and thoughtful, with natural light and a stylish interior in the background.",
+  "Generate a realistic photo of a male fixing a bicycle outdoors. He should appear focused and engaged, with tools in hand and a warm, sunny day setting the mood.",
+  "Generate a realistic photo of a male fishing by a serene lake. He should appear calm and focused, with fishing gear and the peaceful water reflecting the natural surroundings."
+]
+
+# Method to generate a user image using DALL·E
+def generate_user_image
+  client = OpenAI::Client.new
+
+  # Pick a random prompt from the list
+  image_prompt = IMAGE_PROMPTS.sample
+
+  # Make API call to generate the image
+  response = client.images.generate(
+    parameters: {
+      model: "dall-e-2",
+      prompt: image_prompt,
+      n: 1,
+      size: "256x256"
+    }
+  )
+
+  # Return the image URL
+  response.dig("data", 0, "url")
+rescue StandardError => e
+  puts "Error generating image: #{e.message}"
+  nil
 end
 
 # Create events 
@@ -86,13 +175,33 @@ csv_events.each do |event|
   puts "Created event: #{created_event.name} with tags: #{generated_tags.join(', ')}"
 end
 
-# Create 10 users
-users = 10.times.map do |i|
-  User.create!(
+# Create 30 users with details and images
+users = 30.times.map do |i|
+  # Generate user details
+  user_details = generate_user_details
+  next unless user_details.present?
+
+  # Create the user
+  user = User.create!(
     email: "user#{i + 1}@example.com",
     password: "password123",
-    password_confirmation: "password123"
+    password_confirmation: "password123",
+    first_name: user_details[:first_name],
+    last_name: user_details[:last_name],
+    dob: user_details[:dob],
+    phone_number: user_details[:phone_number],
+    hometown: user_details[:hometown]
   )
+
+  # Generate and attach the image
+  image_url = generate_user_image
+  if image_url
+    file = URI.open(image_url)
+    user.photo.attach(io: file, filename: "user#{i + 1}.png", content_type: "image/png")
+  end
+
+  puts "Created user: #{user.email} - #{user.first_name} #{user.last_name}"
+  user
 end
 
 # Assign 3 random tags to each user as user_tags
