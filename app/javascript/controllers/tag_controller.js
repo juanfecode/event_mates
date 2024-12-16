@@ -7,7 +7,7 @@ export default class extends Controller {
     console.log("Tags controller connected!");
   }
 
-  toggle(event) {
+  eventTagToggle(event) {
     console.log("Tag clicked!");
     const tagElement = event.target;
     const tagId = tagElement.dataset.tagId;

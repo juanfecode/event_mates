@@ -1,0 +1,16 @@
+<div class="tags-page">
+  <div class="tags-container" data-controller="tag">
+    <div class="tags">
+      <% @tags.each do |tag| %>
+        <span
+          class="tag <%= 'active' if @user_tags.include?(tag) %>"
+          data-tag-target="tag"
+          data-action="click->tag#toggle"
+          data-tag-id="<%= tag.id %>">
+          <%= tag.name %>
+        </span>
+      <% end %>
+    </div>
+    <%= link_to "Save", profile_path(current_user), class: "btn btn-success btn-lg" %>
+  </div>
+</div>

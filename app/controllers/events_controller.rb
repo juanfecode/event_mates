@@ -16,6 +16,8 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    @tags = Tag.all
+    @event.tags = @tags
   end
 
   def create
