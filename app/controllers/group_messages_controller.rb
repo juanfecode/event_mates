@@ -12,13 +12,7 @@ class GroupMessagesController < ApplicationController
     @message.user = current_user
     @message.group = @group
     if @message.save
-      # respond_to do |format|
-      # format.turbo_stream do
-      #   render turbo_stream: turbo_stream.update(:messages, partial: "group_messages/message",
-      #                                                       locals: { message: @message, user: current_user })
-      # end
-      redirect_to messages_path
-      # end
+      render json: {}, status: :no_content
     else
       render :index, status: :unprocessable_entity
     end
