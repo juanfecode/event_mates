@@ -48,7 +48,7 @@ gem "sassc-rails"
 gem "cloudinary"
 gem "selenium-webdriver"
 gem "ruby-openai"
-
+gem "faker"
 
 gem "solid_cable"
 

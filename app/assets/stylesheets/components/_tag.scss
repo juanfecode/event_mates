@@ -74,3 +74,8 @@
 .tags-save-btn:hover {
   transform: scale(1.02);
 }
+
+.tags-box {
+  display: flex;
+  align-items: flex-end;
+}

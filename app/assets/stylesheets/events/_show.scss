@@ -1,0 +1,133 @@
+.page-background {
+  font-family: Arial, sans-serif;
+  color: #ddd;
+  background: #212121;
+  padding-bottom: 20px;
+}
+
+.event-show-banner {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.event-show-image {
+  position: relative;
+  flex: 2;
+  background-size: cover;
+  background-position: center;
+  max-height: 350px;
+  min-height: 250px;
+}
+
+.event-show-overlay {
+  position: absolute; /* Overlaying content on the image */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Aligns content at the bottom */
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+  color: #fff; /* White text for readability */
+}
+
+.event-show-header {
+  margin-left: 10px;
+}
+
+.event-show-header h1 {
+  color: #AD9F7D;
+  font-size: 2rem;
+  margin: 0;
+
+}
+
+.event-show-header p {
+  margin: 5px 0;
+}
+
+.event-show-map {
+  flex: 1; /* Takes 1/3 of the width */
+  background-color: #212121; /* Example background color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.event-show-section-headers {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin-right: 75px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.event-show-section-headers h4 {
+  font-size: 1.7rem;
+  margin: 0px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  color: #AD9F7D; 
+}
+
+.event-show-section-headers button {
+  margin: 0px;
+  font-size: 1rem; 
+  color: #212121; 
+  cursor: pointer; 
+}
+
+.create-group-btn {
+  background-color: #198754; 
+  color: #212121;
+  border: 1px solid #198754;  
+  padding: 8px 15px;
+  margin: 5px;
+  text-decoration: none;
+  border-radius: 20px; 
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.create-group-btn a {
+  color: #212121;
+}
+
+.create-group-btn:hover {
+  transform: scale(1.02);
+}
+
+.favorite-btn {
+  color: #212121;
+  padding: 8px 15px;
+  text-decoration: none;
+  margin: 5px;
+  border-radius: 20px; 
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.02);
+}
+
+.favorite-btn.add {
+  background-color: #198754; 
+  color: #212121;
+  border: 1px solid #198754;  
+}
+
+.favorite-btn.remove {
+  background-color: #dc3545; 
+  color: #212121;
+  border: 1px solid #dc3545;  
+}
+
+.favoite-btn:hover {
+  transform: scale(1.02);
+}
