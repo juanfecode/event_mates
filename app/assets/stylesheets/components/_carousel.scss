@@ -2,11 +2,26 @@
   margin-bottom: 30px;
 }
 
-.carousel-container h4 {
+.carousel-header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: flex-end;
+}
+
+.carousel-header h4 {
   font-size: 1.7rem;
+  margin: 0px;
+  margin-bottom: 10px;
   margin-left: 20px;
-  margin-top: 15px;
-  color: gray;
+  color: #AD9F7D; 
+}
+
+.carousel-header p {
+  margin: 0px;
+  margin-right: 75px;
+  font-size: 1rem; 
+  color: lightgray; 
+  cursor: pointer; 
 }
 
 .carousel {
@@ -15,10 +30,9 @@
   overflow: hidden; 
   display: flex;
   justify-content: center;
-  background: #f5f5f5;
-  border: 1px solid #ddd;
+  background: #212121;
+  // border: 1px solid #ddd;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .carousel-track-container {
@@ -31,7 +45,7 @@
   padding: 5px;
   min-height: 100%;
   width: 100%;
-  gap: 78px;
+  gap: 80px;
   transition: transform 0.5s ease;
   position: relative;
 }
@@ -43,10 +57,16 @@
   max-width: calc((90% - 40px) / 3);
   max-height: 250px;
   min-height: 100%;
-  background: white;
-  border: 1px solid #ddd;
+  background: #1e1e1e;
+  border: 1px solid #333333;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.carousel-card:hover {
+  transform: scale(1.02);
 }
 
 .carousel-card-content {
@@ -76,7 +96,7 @@
 
 .carousel-card-info h6 {
   font-size: 1.2rem;
-  color: gray;
+  color: #AD9F7D;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8)
 }
 
@@ -110,7 +130,8 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  color: gray;
+  background-color: #333333;
+  color: lightgray;
   border: none;
   padding: 10px;
   border-radius: 50%;
@@ -119,6 +140,10 @@
 
 .carousel-arrow.left-arrow {
   left: 10px;
+}
+
+.carousel-arrow:disabled {
+  background-color: #212121;
 }
 
 .carousel-arrow.right-arrow {

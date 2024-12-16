@@ -1,7 +1,125 @@
-<div class="container mt-3 p-3 border shadow">
-    <h1>Pages#home</h1>
-    <p>Find me in app/views/pages/home.html.erb</p>
-    <%= link_to "Events", events_path, class: "btn btn-primary btn-sm" %>
-    
-    
+<div class="home-background">
+  <div>
+    <%= link_to "Create new Event", new_event_path %>
+  </div>
+
+  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);">
+    <div class="container align-center">
+      <h1><strong>EventMates</strong></h1>
+      <p><strong>Your Gateway to Shared Experiences</strong>!</p>
+      <%= render "shared/search_bar"%>
+    </div>
+  </div>
+
+  <div class="content-sections">
+    <!-- Events This Week Section -->
+    <div class="carousel-container" data-controller="carousel">
+      <div class="carousel-header">
+        <h4>Events this week</h4>
+        <p>View more ›</p>
+      </div>
+      <div class="carousel">
+        <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
+        <div class="carousel-track-container">
+          <div class="carousel-track" data-carousel-target="track">
+            <% events_this_week = @events.where('date <= ?', Date.today + 7).order(:date) %>
+            <% events_this_week.each do |event| %>
+              <div class="carousel-card" data-carousel-target="card" data-url="<%= event_path(event) %>">
+                <div class="carousel-card-content">
+                  <% if event.image.attached? %>
+                    <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
+                  <% else %>
+                    <%= image_tag "default-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
+                  <% end %>
+                  <div class="carousel-card-info">
+                    <h6><%= event.name %></h6>
+                    <p><%= event.date.strftime("%b %d, %Y") %></p>
+                  </div>
+                  <div class="carousel-card-info-2">
+                    <p><%= event.location %></p>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
+      </div>
+    </div>
+
+    <!-- Events w/ Most Popular Tag Section -->
+    <div class="carousel-container" data-controller="carousel">
+      <% popular_tag  = Tag.most_popular %>
+      <div class="carousel-header">
+        <h4>Most Popular Genre: <%= popular_tag[:name].capitalize %></h4>
+        <p>View more ›</p>
+      </div>
+      <div class="carousel">
+        <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
+        <div class="carousel-track-container">
+          <div class="carousel-track" data-carousel-target="track">
+            <% most_popular_tag = @events.joins(:tags).where(tags: { name: popular_tag[:name] }).select('DISTINCT ON (events.name) events.*').order('events.name, events.date ASC').to_a.sort_by(&:date) %>
+            <% most_popular_tag.each do |event| %>
+              <div class="carousel-card" data-carousel-target="card" data-url="<%= event_path(event) %>">
+                <div class="carousel-card-content">
+                  <% if event.image.attached? %>
+                    <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
+                  <% else %>
+                    <%= image_tag "default-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
+                  <% end %>
+                  <div class="carousel-card-info">
+                    <h6><%= event.name %></h6>
+                    <p><%= event.date.strftime("%b %d, %Y") %></p>
+                  </div>
+                  <div class="carousel-card-info-2">
+                    <p><%= event.location %></p>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
+      </div>
+    </div>
+
+  <!-- Events w/ Most Favorites Section -->
+    <div class="carousel-container" data-controller="carousel">
+      <div class="carousel-header">
+        <h4>Hottest Events</h4>
+        <p>View more ›</p>
+      </div>
+      <div class="carousel">
+        <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
+        <div class="carousel-track-container">
+          <div class="carousel-track" data-carousel-target="track">
+            <% most_fav_events = Event.joins(:favorite_events)
+              .select('DISTINCT ON (events.name) events.*, COUNT(favorite_events.id) AS favorites_count')
+              .group('events.id')
+              .order('events.name, favorites_count DESC, events.date ASC')
+              .to_a.sort_by { |event| [-event.favorites_count, event.date] }[0...10] %>
+            <% most_fav_events.each do |event| %>
+              <div class="carousel-card" data-carousel-target="card" data-url="<%= event_path(event) %>">
+                <div class="carousel-card-content">
+                  <% if event.image.attached? %>
+                    <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
+                  <% else %>
+                    <%= image_tag "default-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
+                  <% end %>
+                  <div class="carousel-card-info">
+                    <h6><%= event.name %></h6>
+                    <p><%= event.date.strftime("%b %d, %Y") %></p>
+                  </div>
+                  <div class="carousel-card-info-2">
+                    <p><%= event.location %></p>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
+      </div>
+    </div>
+  </div>
 </div>

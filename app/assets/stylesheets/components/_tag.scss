@@ -1,6 +1,7 @@
 .tags-page{
   margin-bottom: 20px;
   padding-bottom: 20px;
+  background-color: #212121;
 }
 
 .tags-title {
@@ -27,21 +28,49 @@
   gap: 10px;
   margin: 20px;
   padding: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #333333;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #1e1e1e;
 }
 
 .tag {
-  background-color: #e0e0e0;
-  border: none;
-  padding: 8px 16px;
+  background-color: transparent; 
+  color: #0dcaf0; 
+  border: 1px solid #0dcaf0; 
+  padding: 8px 15px;
+  margin: 5px;
+  border-radius: 20px; 
+  font-size: 0.9rem;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease-in-out;
+}
+
+.tag:hover {
+  background-color: #0dcaf0;
+  color: #212121;
+  border-color: #0dcaf0;
 }
 
 .tag.active {
-  background-color: #007bff;
-  color: white;
+  background-color: #0dcaf0; 
+  color: #212121; 
+  border-color: #0dcaf0;
+}
+
+.tags-save-btn {
+  background-color: #198754; 
+  color: #212121;
+  border: 1px solid #198754;  
+  padding: 8px 15px;
+  text-decoration: none;
+  margin: 5px;
+  border-radius: 20px; 
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.tags-save-btn:hover {
+  transform: scale(1.02);
 }

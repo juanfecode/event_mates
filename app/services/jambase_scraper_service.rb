@@ -3,6 +3,7 @@ require "nokogiri"
 require_relative "events_csv_service" 
 
 class JambaseScraperService
+  # make sure to change the page number to the one you want...
   BASE_URL = "https://www.jambase.com/concerts/ar/~/concerts-in-buenos-aires/page/3"
 
   def self.scrape_events
@@ -78,11 +79,12 @@ class JambaseScraperService
           link: event_link,
           description: event_description,
           location: event_location,
+          address: event_address,
           date: event_date,
           image: event_image
         }
 
-        # Debug output... THIS WILL BE DELETED
+        # Debug output... 
         puts "#{index + 1}. #{event_name}"
         puts "\tDate: #{event_date}"
         puts "\tLocation: #{event_location}"

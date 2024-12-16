@@ -1,27 +1,90 @@
-<div>
-  <%= link_to "Create new Event", new_event_path, class: "btn btn-success btn-sm" %>
-</div>
-
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);">
+<div class="page-container" data-controller="filter">
   <div class="container align-center">
-    <h1><strong>EventMates</strong></h1>
-    <p><strong>Your Gateway to Shared Experiences</strong>!</p>
     <%= render "shared/search_bar"%>
   </div>
-</div>
+  <!-- filter Container -->
+  <div class="filter-container">
+    <!-- Date filter -->
+    <div class="date-filter">
+      <button type="button" 
+              class="active" 
+              data-filter-target="dateButton" 
+              data-filter="All Dates" 
+              data-action="click->filter#filterByDate">All Dates</button>
+      <button type="button" 
+              data-filter-target="dateButton" 
+              data-filter="Today" 
+              data-action="click->filter#filterByDate">Today</button>
+      <button type="button" 
+              data-filter-target="dateButton" 
+              data-filter="This Week" 
+              data-action="click->filter#filterByDate">This Week</button>
+      <button type="button" 
+              data-filter-target="dateButton" 
+              data-filter="This Month" 
+              data-action="click->filter#filterByDate">This Month</button>
+    </div>
 
+    <!-- Tags -->
+    <div class="filter-tags-container">
+      <% @tags.first(38).each do |tag| %>
+        <button type="button" 
+                data-filter-target="tagButton" 
+                data-filter="<%= tag.name %>" 
+                data-action="click->filter#filterByTag"><%= tag.name %></button>
+      <% end %>
+      <button type="button" 
+              class="active" 
+              data-filter-target="tagButton" 
+              data-filter="All Genres" 
+              data-action="click->filter#filterByTag">All Genres</button>
+    </div>
 
-  <div class="row mt-4 d-flex justify-content-center">
+    <!-- Categories -->
+    <div class="category-filter">
+      <button type="button" 
+              class="active" 
+              data-filter-target="sortButton" 
+              data-sort="date" 
+              data-action="click->filter#sortBy">Sort by Date</button>
+      <button type="button" 
+              data-filter-target="sortButton" 
+              data-sort="interest" 
+              data-action="click->filter#sortBy">Sort by Interest</button>
+    </div>
+  </div>
+
+  <!-- Events Grid -->
+  <div class="events-grid">
     <% @events.each do |event| %>
-      <div class="col-2 card-event text-center m-2 rounded-5">
-        <%= link_to event_path(event), class: "card-event text-decoration-none" do %>
-          <img src="https://middermusic.com/wp-content/uploads/2022/10/90s-rock-bands.jpg" class="rounded-4 img-fluid" />
-          <div class="p-2">
-            <h2 class="h6"><%= event.name %></h2>
-            <p class="mb-1"><%= event.date.strftime("%B %d, %Y") %></p>
-            <p class="mb-0"><%= event.location %></p>
-          </div>
+      <div class="event-card" 
+        data-filter-target="eventCard"
+        data-date="<%= event.date %>"
+        data-genre="<%= event.tags.pluck(:name).join(', ') %>"
+        data-category="All Artists"
+        data-favorites-count="<%= event.favorite_events.count %>"
+        data-url="<%= event_path(event) %>">
+        <!-- Event Image -->
+        <% if event.image.attached? %>
+          <%= cl_image_tag event.image.key, class: "event-image", alt: "#{event.name}" %>
+        <% else %>
+          <%= image_tag "default-placeholder.jpg", class: "event-image", alt: "Default Event Image" %>
         <% end %>
+
+        <!-- Event Info -->
+        <div class="event-info">
+          <h4><%= event.name %></h4>
+          <p><%= event.location %></p>
+          <p>
+            <i class="fa-solid fa-calendar-days"></i>
+            <%= event.date.strftime("%b %d, %Y") %>
+          </p>
+          <p>
+            <i class="fa-solid fa-users"></i>
+            <%= event.favorite_events.count %>
+          </p>
+        </div>
       </div>
     <% end %>
+  </div>
 </div>

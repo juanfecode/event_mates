@@ -47,6 +47,8 @@ gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
 gem "cloudinary"
 gem "selenium-webdriver"
+gem "ruby-openai"
+
 
 gem "solid_cable"
 

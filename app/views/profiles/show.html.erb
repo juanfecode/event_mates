@@ -8,7 +8,7 @@
         <%= image_tag "avatar-placeholder.png", class: "profile-avatar-img", alt: "Default Avatar" %>
       <% end %>
     </div>
-    <div class="name">
+    <div class="profile-name">
       <h1><%= @user.first_name.capitalize! %> <%= @user.last_name.capitalize! %></h1>
     </div>
   </div>
@@ -21,7 +21,7 @@
       <h5>Details</h5>
       <hr>
       <h6>Age: <%= calculate_age(@user.dob) %></h6>
-      <h6>Hometown: <%# @user.hometown || "Not provided" %></h6>
+      <h6>Hometown: <%= @user.hometown || "Not provided" %></h6>
     </div>
 
     <!-- Tags Section -->
@@ -56,14 +56,16 @@
 <div class="content-sections">
   <!-- Favorite Events Section -->
   <div class="carousel-container" data-controller="carousel">
-    <h4>Favorite Events</h4>
+    <div class="carousel-header">
+      <h4>Favorite Events</h4>
+    </div>
     <div class="carousel">
       <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
       <div class="carousel-track-container">
       <div class="carousel-track" data-carousel-target="track">
         <% @user.favorite_events.each do |fv| %>
           <% event = Event.find(fv[:event_id]) %>
-          <div class="carousel-card" data-carousel-target="card">
+          <div class="carousel-card" data-carousel-target="card" data-url="<%= event_path(event) %>">
             <div class="carousel-card-content">
               <% if event.image.attached? %>
                 <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
@@ -72,7 +74,7 @@
               <% end %>
               <div class="carousel-card-info">
                 <h6><%= event.name %></h6>
-                <p><%= event.date %></p>
+                <p><%= event.date.strftime("%b %d, %Y") %></p>
               </div>
               <div class="carousel-card-info-2">
                 <p><%= event.location %></p>
@@ -88,14 +90,16 @@
 
   <!-- Groups Section -->
   <div class="carousel-container" data-controller="carousel">
-    <h4>Groups</h4>
+    <div class="carousel-header">
+      <h4>Groups</h4>
+    </div>
     <div class="carousel">
       <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
       <div class="carousel-track-container">
         <div class="carousel-track" data-carousel-target="track">
           <% @user.groups.each do |group| %>
             <% event = Event.find(group[:event_id]) %>
-            <div class="carousel-card" data-carousel-target="card">
+            <div class="carousel-card" data-carousel-target="card" data-url="<%= group_path(event) %>">
               <div class="carousel-card-content">
                 <% if event.image.attached? %>
                   <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
@@ -104,7 +108,7 @@
                 <% end %>
                 <div class="carousel-card-info">
                   <h6><%= event.name %></h6>
-                  <p><%= event.date %></p>
+                  <p><%= event.date.strftime("%b %d, %Y") %></p>
                 </div>
                 <div class="carousel-card-info-2">
                   <p><%= group.bio %></p>

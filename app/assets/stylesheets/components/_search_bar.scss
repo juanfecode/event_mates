@@ -1,0 +1,94 @@
+/* Search Bar Container */
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
+  width: 100%;
+  max-width: 600px;
+  padding: 10px;
+  background-color: transparent;
+}
+
+/* Search Form */
+.search-form {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+/* Input Wrapper */
+.search-input-wrapper {
+  position: relative;
+  flex: 1; /* Take remaining space */
+}
+
+/* Search Icon */
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #888; /* Light gray color */
+  font-size: 1rem;
+  pointer-events: none; /* Prevent interactions */
+}
+
+/* Search Input Field */
+.search-input {
+  width: 100%;
+  border: none;
+  background-color: #292929; /* Dark gray background */
+  color: #ddd; /* Light gray text */
+  padding: 10px 15px 10px 40px; /* Add space for the search icon */
+  border-radius: 50px; /* Pill shape */
+  font-size: 1rem;
+  outline: none;
+  box-shadow: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.search-input::placeholder {
+  color: #888; /* Lighter text for placeholder */
+  font-weight: 400;
+}
+
+.search-input:focus {
+  border: 1px solid #555; /* Border on focus */
+}
+
+/* Search Button */
+.search-btn {
+  background-color: #198754; /* Green success color */
+  color: #fff; /* White text */
+  border: none;
+  border-radius: 50px; /* Pill shape */
+  padding: 10px 20px;
+  margin-left: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-btn:hover {
+  background-color: #157347; /* Slightly darker green */
+}
+
+/* Clear Search Link */
+.clear-search {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+.clear-search a {
+  color: #bbb;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.clear-search a:hover {
+  color: #fff; /* White on hover */
+}

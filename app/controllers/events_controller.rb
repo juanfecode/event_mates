@@ -6,6 +6,7 @@ class EventsController < ApplicationController
     else
       @events = Event.all
     end
+    @tags = Tag.by_popularity
   end
 
   def show

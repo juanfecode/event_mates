@@ -1,15 +1,13 @@
-<div data-controller="search" class="position-relative">
-  <%= form_with url: events_path, method: :get, class: "d-flex my-3 border-radius", html: { data: { search_target: "form" } } do %>
-    <%= text_field_tag :query,
-                       params[:query],
-                       class: "form-control",
-                       placeholder: "Search for events by name or location",
-                       data: { search_target: "input" } %>
-    <%= submit_tag "Search", name: "", class: "btn btn-success" %>
-  <% end %>
-  <div class="d-flex justify-content-end position-absolute close" style="top: 6px; right: 83px;">
-    <a href="" data-action="click->search#clear" class="text-decoration-none small">
-      Clear Search
-    </a>
-  </div>
+<div data-controller="search" class="search-bar-container">
+  <form action="<%= events_path %>" method="get" class="search-form" data-search-target="form">
+    <div class="search-input-wrapper">
+      <i class="fa fa-search search-icon"></i>
+      <input type="text" 
+             name="query" 
+             value="<%= params[:query] %>" 
+             placeholder="Search for artists, concerts, venues and festivals" 
+             class="search-input" 
+             data-search-target="input" />
+    </div>
+  </form>
 </div>
