@@ -18,12 +18,19 @@ class EventsController < ApplicationController
     @event = Event.new
     @tags = Tag.all
     @event.tags = @tags
+    session[:event_tags] = []
   end
 
   def create
     @event = Event.new(event_params)
-    if @event.save
+    if @event.save!
+      session[:event_tags].each do |tag|
+        @tag = Tag.find(tag["id"])
+        @event.tags << @tag
+      end
+      session[:event_tags] = []
       redirect_to event_path(@event)
+
     else
       render :new, status: :unprocessable_entity
     end
@@ -36,6 +43,6 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:name, :date, :location)
+    params.require(:event).permit(:name, :date, :location, :description)
   end
 end

@@ -8,25 +8,25 @@
       <%= f.input :location %>
       <%= f.input :description %>
       <%= f.input :date %>
+
+      </div>
+      <h1 class="mt-5">Select the tags of this event</h1>
+      <div>
+        <div class="tags-container" data-controller="event-tags">
+        <div class="tags">
+          <% @tags.each do |tag| %>
+            <span
+              class="tag <%= 'active' if @event.tags.include?(tag) %>"
+              data-event-tags-target="tag"
+              data-action="click->event-tags#eventTagToggle"
+              data-tag-id="<%= tag.id %>">
+              <%= tag.name %>
+            </span>
+          <% end %>
+        </div>
+
+      </div>
       <%= f.submit "Create Event", class: "btn btn-primary" %>
     <% end %>
   </div>
-  <h1 class="mt-5">Select the tags of this event</h1>
-  <div>
-    <div class="tags-container" data-controller="tag">
-    <div class="tags">
-      <% @tags.each do |tag| %>
-        <span
-          class="tag <%= 'active' if @event.tags.include?(tag) %>"
-          data-tag-target="tag"
-          data-action="click->tag#toggle"
-          data-tag-id="<%= tag.id %>">
-          <%= tag.name %>
-        </span>
-      <% end %>
-    </div>
-    <%= link_to "Save", profile_path(current_user), class: "btn btn-success btn-lg" %>
-  </div>
-  </div>
-
 </div>

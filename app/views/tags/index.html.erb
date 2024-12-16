@@ -12,7 +12,7 @@
       <h1><%= @user.first_name.capitalize! %>'s Interests</h1>
     </div>
   </div>
-  <div class="tags-container" data-controller="eventTagToggle">
+  <div class="tags-container" data-controller="tag">
     <div class="tags">
       <% @tags.each do |tag| %>
         <span
@@ -24,6 +24,6 @@
         </span>
       <% end %>
     </div>
-    <%= link_to "Save", profile_path(current_user), class: "btn btn-success btn-lg" %>
+    <%= link_to "Save", profile_path(current_user), class: "tags-save-btn" %>
   </div>
 </div>
