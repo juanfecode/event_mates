@@ -10,11 +10,6 @@
         <% end %>
         <% if current_user.member?(group) %>
             <div id="messages-icon">
-                <% if current_user.group_messages.last.user_id != current_user %>
-                <p class="dot-received"></p>
-                
-                <% end %>
-                
                 <%= link_to messages_path, data: { turbo_frame: :group_content, turbo_action: :advance, action: "click->group-menu#remove" }, class: "menu__item", style: "--bgColorItem:rgb(4, 101, 121);" do %>
                     <svg class="icon" viewBox="0 0 24 24">
                         <path  d="M6.7,4.8h10.7c0.3,0,0.6,0.2,0.7,0.5l2.8,7.3c0,0.1,0,0.2,0,0.3v5.6c0,0.4-0.4,0.8-0.8,0.8H3.8
