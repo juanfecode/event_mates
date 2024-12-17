@@ -29,4 +29,9 @@ class User < ApplicationRecord
     requested = requests.where(group_id: group.id).where(status: "pending_allow").any?
     invited || requested
   end
+
+  def matching_profile
+    tags.map(&:id).sort
+  end
+
 end

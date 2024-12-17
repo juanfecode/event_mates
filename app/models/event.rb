@@ -25,4 +25,8 @@ class Event < ApplicationRecord
   validates :date, uniqueness: { scope: :name }
   validates :name, presence: true
   validates :name, uniqueness: { scope: :date }
+
+  def matching_event
+    tags.map(&:id).sort
+  end
 end
