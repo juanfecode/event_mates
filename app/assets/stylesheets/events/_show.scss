@@ -16,7 +16,7 @@
   position: relative;
   flex: 2;
   background-size: cover;
-  background-position: center;
+  background-position: top;
   max-height: 350px;
   min-height: 250px;
 }
@@ -41,6 +41,7 @@
 
 .event-show-header h1 {
   color: #AD9F7D;
+  text-shadow: 2px 2px 4px black;
   font-size: 2rem;
   margin: 0;
 
@@ -48,6 +49,7 @@
 
 .event-show-header p {
   margin: 5px 0;
+  text-shadow: 2px 2px 4px black;
 }
 
 .event-show-map {
@@ -56,6 +58,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.event-show-content {
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
 .event-show-section-headers {
@@ -73,6 +80,7 @@
   margin-bottom: 10px;
   margin-left: 20px;
   color: #AD9F7D;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .event-show-section-headers button {
@@ -83,53 +91,105 @@
 }
 
 .create-group-btn {
-  background-color: #198754;
-  color: #212121;
-  border: 1px solid #198754;
-  padding: 8px 15px;
+  background-color: transparent; 
+  color: #198754;
+  border: 1px solid transparent;  
+  padding: 8px;
   margin: 5px;
   text-decoration: none;
-  border-radius: 20px;
-  font-size: 0.9rem;
+  border-radius: 20px; 
+  font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  text-shadow: 1px 1px 2px black;
 }
 
 .create-group-btn a {
-  color: #212121;
+  color: #198754;
 }
 
 .create-group-btn:hover {
   transform: scale(1.02);
+  font-size: 1.4rem; /* Increase font size slightly */
+  transition: font-size 0.2s ease-in-out; 
+}
+
+.favorites-button {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
 }
 
 .favorite-btn {
-  color: #212121;
-  padding: 8px 15px;
+  color: #198754;
+  padding: 8px;
   text-decoration: none;
+  font-size: 1.7rem;
   margin: 5px;
-  border-radius: 20px;
-  font-size: 0.9rem;
+  border-radius: 20px; 
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  text-shadow: 1px 1px 2px black;
 }
 
-.favorite-btn:hover {
+.favorite-btn:hover i {
   transform: scale(1.02);
+  font-size: 1.9rem; /* Increase font size slightly */
+  transition: font-size 0.2s ease-in-out; 
 }
 
 .favorite-btn.add {
-  background-color: #198754;
-  color: #212121;
-  border: 1px solid #198754;
+  background-color: transparent; 
+  color: #198754;
+  border: 1px solid transparent;  
 }
 
 .favorite-btn.remove {
-  background-color: #dc3545;
-  color: #212121;
-  border: 1px solid #dc3545;
+  background-color: transparent; 
+  color: #dc3545;
+  border: 1px solid transparent;  
 }
 
 .favoite-btn:hover {
   transform: scale(1.02);
+}
+
+.user-card {
+  background: #1e1e1e;
+  flex: 0 0 calc((90% - 40px) / 3); 
+  max-width: calc((90% - 40px) / 3);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.user-card:hover {
+  transform: scale(1.02);
+}
+
+.user-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.user-info {
+  padding: 15px;
+}
+
+.user-info h4 {
+  margin: 0 0 5px;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.user-info p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: #aaa;
 }
