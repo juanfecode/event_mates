@@ -77,7 +77,8 @@
   margin: 0px;
   margin-bottom: 10px;
   margin-left: 20px;
-  color: #AD9F7D; 
+  color: #AD9F7D;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .event-show-section-headers button {
@@ -98,6 +99,7 @@
   font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  text-shadow: 1px 1px 2px black;
 }
 
 .create-group-btn a {
@@ -127,6 +129,7 @@
   border-radius: 20px; 
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  text-shadow: 1px 1px 2px black;
 }
 
 .favorite-btn:hover i {
