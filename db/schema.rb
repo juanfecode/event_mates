@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_16_150013) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_16_202206) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_16_150013) do
     t.datetime "updated_at", null: false
     t.string "link"
     t.string "address"
+    t.float "latitude"
+    t.float "longitude"
   end
 
   create_table "favorite_events", force: :cascade do |t|
