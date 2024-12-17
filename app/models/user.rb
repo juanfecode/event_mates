@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :accepted_groups, through: :accepted_requests, source: :group
   has_many :group_messages
   has_one_attached :photo
+  has_many :questions
 
   def own_groups
     groups
@@ -29,4 +30,9 @@ class User < ApplicationRecord
     requested = requests.where(group_id: group.id).where(status: "pending_allow").any?
     invited || requested
   end
+
+  def matching_profile
+    tags.map(&:id).sort
+  end
+
 end

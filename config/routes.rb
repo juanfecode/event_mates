@@ -20,10 +20,9 @@ Rails.application.routes.draw do
 
   # juanfe
   resources :events, only: %i[index show new create update] do
-  #favorites
     resources :favorite_events, only: %i[create destroy]
-  #
   end
+  resources :questions, only: %i[index create]
 
 
   # kyle
@@ -37,7 +36,7 @@ Rails.application.routes.draw do
 
   # gaston
   get "/groups/:id", to: "groups#show", as: "group"
-  get "/groups/:id/admin", to:"groups#admin", as: "admin_group" 
+  get "/groups/:id/admin", to:"groups#admin", as: "admin_group"
   get "/groups/:id/invite", to: "groups#invite", as: "invite_group"
   post "/groups/:id/invite", to: "groups#invite_requests", as: "invite_requests"
   get "/requests", to: "requests#index"
