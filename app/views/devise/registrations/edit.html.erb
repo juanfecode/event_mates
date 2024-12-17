@@ -1,70 +1,69 @@
-<div class="container bg-white border shadow mt-3 p-3 w-50">
-  <%# render "shared/logo" %>
-    <h4 class="text-center">Edit your information</h4>
-    <hr>
-  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, data: { turbo: false } }) do |f| %>
-    <%= f.error_notification %>
-  
-    <div class="form-inputs">
-      <%= f.input :email, 
-      required: true, 
-      hint: "It is not possible to modify your email. Please contact us at: contact@gogogo.com ",
-      input_html: {
-      data: { remove_class_target: "inputElementEmail" },
-      disabled: true, class: "text-secondary" } %>
-  
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-      <% end %>
-      <hr>
-      <p><strong>Personal info</strong></p>
-      <%= f.input :first_name,
-                  required: false,
-                  input_html: { autocomplete: "first-name" } %>
-      <%= f.input :last_name,
-                  required: false,
-                  input_html: { autocomplete: "last-name" } %>
-      <%= f.input :dob,
-                  as: :string,
-                  required: false,
-                  label: "Date of Birth",
-                  input_html: { 
-                    type: "text",
-                    id: "test-datepicker",
-                    data: { 
-                      controller: "datepicker",
-                      datepicker_target: "dob",
-                    } 
-                  }%>
-      <%= f.input :phone_number,
-                  required: false,
-                  input_html: { autocomplete: "phone-number" } %>
-      <%= f.input :photo, as: :file, label: "Upload Avatar" %>
-      <hr>
-      <p><strong>Account security</strong></p>
-      <%= f.input :password,
-                  hint: "If you do not want to change your password, just leave it blank",
-                  required: false,
-                  input_html: { autocomplete: "new-password" } %>
-      <%= f.input :password_confirmation,
-                  required: false,
-                  input_html: { autocomplete: "new-password" } %>
-      <hr>
-      <p><strong>To confirm your changes please enter your password</strong></p>
-      <%= f.input :current_password,
-                  required: true,
-                  input_html: { autocomplete: "current-password" } %>
+<div class="page-container">
+  <div class="devise-container">
+    <h4 class="devise-title">Edit your information</h4>
+    <hr class="devise-divider">
+    
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, data: { turbo: false } }) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="devise-form-inputs">
+        <%= f.input :email, 
+        required: true, 
+        hint: "It is not possible to modify your email. Please contact us at: contact@gogogo.com ",
+        input_html: {
+        data: { remove_class_target: "inputElementEmail" },
+        disabled: true, class: "devise-text-secondary" } %>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <p class="devise-info">Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+        <% end %>
+        <hr class="devise-divider">
+
+        <p class="devise-section-title"><strong>Personal info</strong></p>
+        <%= f.input :first_name, required: false, input_html: { autocomplete: "first-name" } %>
+        <%= f.input :last_name, required: false, input_html: { autocomplete: "last-name" } %>
+        <%= f.input :hometown, required: false, input_html: { autocomplete: "hometown" } %>
+        <%= f.input :dob,
+                    as: :string,
+                    required: false,
+                    label: "Date of Birth",
+                    input_html: { 
+                      type: "text",
+                      id: "test-datepicker",
+                      data: { 
+                        controller: "datepicker",
+                        datepicker_target: "dob",
+                      } 
+                    }%>
+        <%= f.input :phone_number, required: false, input_html: { autocomplete: "phone-number" } %>
+        <%= f.input :photo, as: :file, label: "Upload Avatar" %>
+        <%= f.input :bio, required: false, input_html: { autocomplete: "bio" } %>
+
+        <hr class="devise-divider">
+        <p class="devise-section-title"><strong>Account security</strong></p>
+        <%= f.input :password,
+                    hint: "If you do not want to change your password, just leave it blank",
+                    required: false,
+                    input_html: { autocomplete: "new-password" } %>
+        <%= f.input :password_confirmation, required: false, input_html: { autocomplete: "new-password" } %>
+
+        <hr class="devise-divider">
+        <p class="devise-section-title"><strong>To confirm your changes please enter your password</strong></p>
+        <%= f.input :current_password, required: true, input_html: { autocomplete: "current-password" } %>
+      </div>
+
+      <div class="devise-form-actions">
+        <%= f.button :submit, "Update my profile", class: "devise-submit-btn" %>
+      </div>
+    <% end %>
+
+    <hr class="devise-divider">
+    <div class="devise-cancel-account">
+      <p class="devise-text-small">Unhappy with our service?</p>
+      <%= button_to "Cancel my account", registration_path(resource_name),
+            class: "devise-cancel-btn",
+            data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" },
+            method: :delete %>
     </div>
-  
-    <div class="form-actions">
-      <%= f.button :submit, "Update my profile", class: "btn btn-success w-100 mt-3" %>
-    </div>
-  <% end %>
-  <hr>
-  <div class=""><p class="text-secondary small">Unhappy with our service?</p>
-  <%= button_to "Cancel my account", registration_path(resource_name),
-          class: "btn btn-dark btn-sm",
-          data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" },
-          method: :delete %>
   </div>
 </div>

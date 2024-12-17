@@ -1,0 +1,14 @@
+<% if current_user.favorite_events.pluck(:event_id).exclude?(@event.id)  %>
+  <div>
+    <%= link_to event_favorite_events_path(@event), class: "favorite-btn add", data: { turbo_method: :post } do %>
+      <i class="fa-regular fa-heart"></i>
+    <% end %>
+  </div>
+<% else %>
+  <div>
+    <% favorite_event = current_user.favorite_events.find_by(event_id: @event.id) %>
+    <%= link_to event_favorite_event_path(@event, favorite_event), class: "favorite-btn remove", data: { turbo_method: :delete } do %>
+      <i class="fa-solid fa-heart-crack"></i>
+    <% end %>
+  </div>
+<% end %>
