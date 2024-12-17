@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_17_145353) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_17_204410) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "vector"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -91,6 +92,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_17_145353) do
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_groups_on_event_id"
     t.index ["user_id"], name: "index_groups_on_user_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text "user_question"
+    t.text "ai_answer"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "requests", force: :cascade do |t|
@@ -280,6 +290,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_17_145353) do
   add_foreign_key "group_messages", "users"
   add_foreign_key "groups", "events"
   add_foreign_key "groups", "users"
+  add_foreign_key "questions", "users"
   add_foreign_key "requests", "events"
   add_foreign_key "requests", "groups"
   add_foreign_key "requests", "users"
