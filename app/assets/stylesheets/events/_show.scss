@@ -8,6 +8,8 @@
 .event-show-banner {
   display: flex;
   margin-bottom: 20px;
+  max-height: 450px;
+  min-height: 250px;
 }
 
 .event-show-image {
@@ -65,7 +67,7 @@
 
 .event-show-section-headers {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   margin-right: 75px;
   padding-top: 20px;
@@ -83,9 +85,9 @@
 
 .event-show-section-headers button {
   margin: 0px;
-  font-size: 1rem; 
-  color: #212121; 
-  cursor: pointer; 
+  font-size: 1rem;
+  color: #212121;
+  cursor: pointer;
 }
 
 .create-group-btn {
