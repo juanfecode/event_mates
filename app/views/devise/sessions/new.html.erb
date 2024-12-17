@@ -1,24 +1,40 @@
-<div class="container w-50 border shadow mt-5 p-3 bg-white">
-  <div class="mx-auto">
-    <%# render "shared/logo" %>
-    <h4 class="text-center mt-2">Sign in</h4>
+<div class="page-container">
+  <div class="devise-container">
+    <div class="devise-title">
+      <h4>Sign in</h4>
+    </div>
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="devise-form-inputs">
+        <%= f.input :email,
+                    required: false,
+                    autofocus: true,
+                    input_html: { 
+                      autocomplete: "email", 
+                      placeholder: "your@email.com" 
+                    } %>
+        <%= f.input :password,
+                    required: false,
+                    input_html: { 
+                      autocomplete: "current-password", 
+                      placeholder: "Enter your password" 
+                    } %>
+        <% if devise_mapping.rememberable? %>
+          <div class="devise-remember-me">
+            <div class="devise-checkbox-wrapper">
+              <%= f.check_box :remember_me, class: "devise-checkbox" %>
+            </div>
+            <%= f.label :remember_me, "Remember me", class: "devise-checkbox-label" %>
+          </div>
+        <% end %>
+      </div>
+    
+      <div class="devise-form-actions">
+        <%= f.button :submit, "Log in", class: "devise-submit-btn" %>
+      </div>
+    <% end %>
+    
+    <div class="devise-text-small">
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
-  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="form-inputs">
-      <%= f.input :email,
-                  required: false,
-                  autofocus: true,
-                  input_html: { autocomplete: "email" } %>
-      <%= f.input :password,
-                  required: false,
-                  input_html: { autocomplete: "current-password" } %>
-      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-    </div>
-  
-    <div class="form-actions">
-      <%= f.button :submit, "Log in", class: "btn btn-success w-100" %>
-    </div>
-  <% end %>
-  
-  <div class="mt-4 small"><%= render "devise/shared/links" %></div>
 </div>
