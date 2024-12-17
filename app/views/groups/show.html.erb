@@ -18,14 +18,10 @@
         </div>
       </div>
     </div>
+  <h1><%= current_user.id %></h1>
   </div>
   <%= render "groups/menu", group: @group %>
-
     <div class="group-container">
-        <%# temporary %>
-        <div class="">
-            <%= render RequestsButtonComponent.new(@group) unless @group.owner?(current_user) %>
-        </div>
         <%= turbo_frame_tag :group_content do %>
             <%= render "groups/info", group: @group %>
         <% end %>

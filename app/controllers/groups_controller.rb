@@ -50,8 +50,12 @@ class GroupsController < ApplicationController
 
   def admin
     # group set by set_group
-    @incoming_requests = @group.incoming_requests
-    @outgoing_requests = @group.outgoing_requests
+    if current_user == @group.owner
+      @incoming_requests = @group.incoming_requests
+      @outgoing_requests = @group.outgoing_requests
+    else
+      redirect_to @group
+    end
   end
 
   def edit

@@ -52,4 +52,6 @@ Rails.application.routes.draw do
   get "/groups/:id/messages", to: "group_messages#index", as: "messages"
   post "/groups/:id/messages", to: "group_messages#create_message", as: "create_message"
 
+  get "/about_us", to: "pages#about_us"
+
 end

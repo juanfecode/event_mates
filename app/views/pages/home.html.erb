@@ -29,7 +29,7 @@
                   <% if event.image.attached? %>
                     <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
                   <% else %>
-                    <%= image_tag "default-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
+                    <%= image_tag "banner-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
                   <% end %>
                   <div class="carousel-card-info">
                     <h6><%= event.name %></h6>
@@ -65,7 +65,7 @@
                   <% if event.image.attached? %>
                     <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
                   <% else %>
-                    <%= image_tag "default-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
+                    <%= image_tag "banner-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
                   <% end %>
                   <div class="carousel-card-info">
                     <h6><%= event.name %></h6>
@@ -104,7 +104,7 @@
                   <% if event.image.attached? %>
                     <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
                   <% else %>
-                    <%= image_tag "default-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
+                    <%= image_tag "banner-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
                   <% end %>
                   <div class="carousel-card-info">
                     <h6><%= event.name %></h6>

@@ -13,6 +13,6 @@ export default class extends Controller {
       this.element.classList.add('received');
       this.element.classList.remove('sent');
     }
-    this.element.scrollIntoView(); // scroll to the bottom of the page
+    this.element.scrollIntoView(false); // scroll to the bottom of the page
   }
 }

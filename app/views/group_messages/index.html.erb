@@ -16,6 +16,7 @@
                                                         data: { controller: "reset",
                                                                 action: "turbo:submit-end->reset#reset" }
                                                         } do |f| %>
+                <%= hidden_field_tag :session_user, current_user.id %>
                 <%= f.input :message, label: false, wrapper_html: {class: "flex-grow-1"} %>
                 <%= f.submit "Send", class: "btn btn-primary mb-3" %>
             <% end %>

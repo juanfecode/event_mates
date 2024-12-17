@@ -1,0 +1,14 @@
+.dot-received {
+    height: 10px;
+    width: 10px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 8px;
+    z-index: 100;
+  }
+
+.dot-sent {
+    display: none;
+}

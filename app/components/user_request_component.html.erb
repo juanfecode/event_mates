@@ -1,22 +1,28 @@
-<div class="my-4">
-    <p><strong>Members</strong></p>
-    <table class="table table-striped table-sm table-hover">
-        <thead>
-            <td style="width: 10%;">ID</td>
-            <td style="width: 20%;">User</td>
-            <td style="width: 70%;"></td>
-        </thead>
-        <tbody class="table-group-divider">
-        <% @members.each do |member| %>
-            <tr>
-                <td><%= member.id %></td>
-                <td><%= member.email %></td>
-                <td><% if owner? %>
-                        <%= button_to "Remove", remove_member_path(@group.requests.find_by(user: member)), method: :patch, class: "btn btn-danger btn-sm rounded-pill" %>
+<hr>
+    <p><strong>Group members</strong></p>
+    <div class="carousel-container" data-controller="carousel">
+        <div class="carousel">
+            <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
+            <div class="carousel-track-container">
+                <div class="carousel-track" data-carousel-target="track">
+                    <% @members.each do |member| %>
+                        <div class="request-card" data-carousel-target="card" data-url="<%= profile_path(member) %>">
+                            <% if member.photo.attached? %>
+                                <%= cl_image_tag member.photo.key, class: "request-image", alt: "#{member.first_name} Image" %>
+                            <% else %>
+                                <%= image_tag "banner-placeholder.jpg", class: "request-image", alt: "Default Event Image" %>
+                            <% end %>
+                            <div class="request-info">
+                                <h6><%= member.first_name %> <%= member.last_name %></h6>
+                                <p><%= helpers.calculate_age(member.dob) %> years old</p>
+                            </div>
+                            <div class="text-center">
+                                <%= button_to "Remove", remove_member_path(@group.requests.find_by(user: member)), method: :patch, class: "btn btn-danger btn-sm rounded-pill" %>
+                            </div>
+                        </div>
                     <% end %>
-                </td>
-            </tr>
-        <% end %>
-        </tbody>
-    </table>
-</div>
+                </div>
+            </div>
+            <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
+        </div>
+    </div>

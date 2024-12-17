@@ -1,6 +1,9 @@
+<div>
+    <%= render RequestsButtonComponent.new(group) unless group.owner?(current_user) %>
+</div>
 <div class="group-info mt-3">
-    <p class="text-black">Bio: <%= group.bio %></p>
+    <p class="">Bio: <%= group.bio %></p>
     <%# add link to profile %>
-    <p class="text-black">Created by: <%= current_user == group.owner ? "You" : "#{group.owner.first_name} #{group.owner.last_name}" %></p>
+    <p class="">Created by: <%= current_user == group.owner ? "You" : "#{group.owner.first_name} #{group.owner.last_name}" %></p>
     <%= render UserRequestComponent.new(group) if group.members.any? %>
 </div>
