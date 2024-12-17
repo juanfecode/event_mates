@@ -1,0 +1,64 @@
+    <style>
+    body { font-family: Arial, sans-serif; background-color: #121212; color: #e0e0e0; }
+    .navbar-lewagon { background-color: #181818; }
+    .navbar-brand img { height: 40px; }
+    .home-banner {
+      background: url('https://images.pexels.com/photos/167474/pexels-photo-167474.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') center center/cover;
+      color: white;
+      text-align: center;
+      padding: 150px 20px;
+      position: relative;
+    }
+    .home-banner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+    }
+    .home-banner h1, .home-banner p {
+      position: relative;
+      z-index: 2;
+    }
+    .section-title { margin-bottom: 30px; text-transform: uppercase; font-weight: bold; }
+    .section-content p { line-height: 1.8; font-size: 1.1rem; }
+    footer { background-color: #181818; color: white; padding: 20px 0; }
+    footer a { color: white; text-decoration: none; }
+    .rocky-image {
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+    <!-- Banner -->
+  <div class="home-banner">
+    <h1><strong>About EventMates</strong></h1>
+    <p>Your gateway to unforgettable concert experiences.</p>
+  </div>
+
+  <!-- Content -->
+  <div class="container my-5">
+    <div class="row mb-5">
+      <div class="col-md-6">
+        <h2 class="section-title">Who We Are</h2>
+        <div class="section-content">
+          <p>EventMates was created for passionate music and live event lovers. We believe that shared experiences make concerts, festivals, and shows even more powerful. Our platform connects fans so they can attend events together, forge new friendships, and create memories that last forever.</p>
+          <p>Whether you're into rock, pop, EDM, or indie vibes, EventMates is here to help you find your tribe and enjoy the music that moves you.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <img src="https://images.pexels.com/photos/167471/pexels-photo-167471.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="img-fluid rocky-image" alt="Rock Concert Crowd">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <img src="https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="img-fluid rocky-image" alt="Music Fans">
+      </div>
+      <div class="col-md-6">
+        <h2 class="section-title">Our Mission</h2>
+        <div class="section-content">
+          <p>We aim to transform live event attendance into a truly social experience. Our mission is to connect individuals who love music and events, ensuring no one ever has to miss their favorite artist due to a lack of company.</p>
+          <p>At EventMates, you'll discover groups attending the same concerts, access exclusive pre-event meetups, and be part of a community that lives for live music.</p>
+        </div>
+      </div>
+    </div>
+  </div>

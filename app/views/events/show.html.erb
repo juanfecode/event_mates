@@ -52,8 +52,7 @@
               <% if fv.photo.attached? %>
                 <%= cl_image_tag fv.photo.key, class: "user-image", alt: "#{fv.first_name} Image" %>
               <% else %>
-                <%= image_tag "default-placeholder.jpg", class: "user-image", alt: "Default Event Image" %>
-
+                <%= image_tag "banner-placeholder.jpg", class: "event-image", alt: "Default Event Image" %>
               <% end %>
               <div class="user-info">
                 <h6><%= fv.first_name %> <%= fv.last_name %></h6>
@@ -82,7 +81,7 @@
               <% if event.image.attached? %>
                 <%= cl_image_tag event.image.key, class: "user-image", alt: "#{event.name} Image" %>
               <% else %>
-                <%= image_tag "default-placeholder.jpg", class: "user-image", alt: "Default Event Image" %>
+                <%= image_tag "banner-placeholder.jpg", class: "event-image", alt: "Default Event Image" %>
               <% end %>
               <div class="user-info">
                 <h6><%= event.name %></h6>

@@ -1,16 +1,28 @@
-<div class="container w-100 border shadow mt-3 p-3">
-    <%# temporary %>
-    <p><%= current_user.email %></p>
-    <p><%= current_user.invited_or_requested?(@group) %></p>
-
-    <h1>Group for <%= @group.event.name %> @ <%= @group.event.location %></h1>
-    <p class="small text-black"> Date: <%= @group.event.date.strftime("%d %b %Y") %> </p>
-    
-    <div class="">
-        <%= render RequestsButtonComponent.new(@group) unless @group.owner?(current_user) %> 
+<div class="page-background">
+  <div class="event-show-banner">
+    <div class="event-show-image" style="background-image: url('<%= @event.image.attached? ? cl_image_path(@event.image.key) : asset_path("banner-placeholder.jpg") %>');">
+      <div class="event-show-overlay">
+        <div class="event-show-header">
+          <h1><%= @event.name %></h1>
+          <p>Date: <%= @event.date.strftime("%B %d, %Y") %></p>
+          <p>Location: <%= @event.location %></p>
+        </div>
+        <div class="tags-box">
+          <% if @event.tags.present? %>
+            <% @event.tags.each do |tag| %>
+              <span class="tag active"><%= tag.name %></span>
+            <% end %>
+          <% else %>
+            <p>No tags available.</p>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <%= render "groups/menu", group: @group %>
-    <%= turbo_frame_tag :group_content do %>
-        <%= render "groups/info", group: @group %>
-    <% end %>
+  </div>
+  <%= render "groups/menu", group: @group %>
+    <div class="group-container">
+        <%= turbo_frame_tag :group_content do %>
+            <%= render "groups/info", group: @group %>
+        <% end %>
+    </div>
 </div>

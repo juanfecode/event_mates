@@ -1,7 +1,14 @@
 <div class="container mt-3 p-3 border">
     <%= turbo_frame_tag :group_content do %>
-        <%= render "shared/requests", outgoing_requests: @outgoing_requests,
-                                      incoming_requests: @incoming_requests if current_user == @group.owner %>
+        <div class="d-block text-center">
+            <%= link_to "+ Invite", invite_group_path, class: "btn btn-primary btn-lg rounded-pill mb-5" %>
+            <% if @outgoing_requests.any? || @incoming_requests.any? %>
+                <%= render "shared/requests", outgoing_requests: @outgoing_requests,
+                                                incoming_requests: @incoming_requests %>
+            <% else %>
+                <p> There are no requests pending. You can send out invites clicking on the + Invite button.</p>
+            <% end %>
+        </div>
     <% end %>
 </div>
                                 

@@ -3,6 +3,7 @@
   color: #ddd;
   background: #212121;
   padding-bottom: 20px;
+  position: relative;
 }
 
 .event-show-banner {
@@ -17,8 +18,8 @@
   flex: 2;
   background-size: cover;
   background-position: top;
-  max-height: 350px;
-  min-height: 250px;
+  max-height: 500px;
+  min-height: 400px;
 }
 
 .event-show-overlay {
@@ -31,7 +32,7 @@
   flex-direction: column;
   justify-content: flex-end; /* Aligns content at the bottom */
   padding: 20px;
-  background: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+  background: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
   color: #fff; /* White text for readability */
 }
 
@@ -44,12 +45,13 @@
   text-shadow: 2px 2px 4px black;
   font-size: 2rem;
   margin: 0;
+  text-shadow: 1px 1px 2px black;
 
 }
 
 .event-show-header p {
   margin: 5px 0;
-  text-shadow: 2px 2px 4px black;
+  text-shadow: 1px 1px 2px black;
 }
 
 .event-show-map {

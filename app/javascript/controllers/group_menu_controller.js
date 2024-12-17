@@ -2,6 +2,8 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="group-menu"
 export default class extends Controller {
+  static targets = ["dot"]
+
   connect() {
     "use strict";
     const body = document.body;
@@ -40,5 +42,9 @@ export default class extends Controller {
       offsetMenuBorder(activeItem, menuBorder);
       menu.style.setProperty("--timeOut", "none");
     });
+  }
+
+  remove(event) {
+    this.dotTarget.remove()
   }
 }
