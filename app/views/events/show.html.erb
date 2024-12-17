@@ -47,13 +47,13 @@
         <div class="carousel-track-container">
         <div class="carousel-track" data-carousel-target="track">
           <% @favorites.each do |fv| %>
-            <div class="event-card" data-carousel-target="card" data-url="<%= profile_path(fv) %>">
+            <div class="user-card" data-carousel-target="card" data-url="<%= profile_path(fv) %>">
               <% if fv.photo.attached? %>
-                <%= cl_image_tag fv.photo.key, class: "event-image", alt: "#{fv.first_name} Image" %>
+                <%= cl_image_tag fv.photo.key, class: "user-image", alt: "#{fv.first_name} Image" %>
               <% else %>
-                <%= image_tag "default-placeholder.jpg", class: "event-image", alt: "Default Event Image" %>
+                <%= image_tag "default-placeholder.jpg", class: "user-image", alt: "Default Event Image" %>
               <% end %>
-              <div class="event-info">
+              <div class="user-info">
                 <h6><%= fv.first_name %> <%= fv.last_name %></h6>
                 <p><%= calculate_age(fv.dob) %> years old</p>
               </div>
@@ -77,13 +77,13 @@
         <div class="carousel-track" data-carousel-target="track">
           <% @groups.each do |group| %>
             <% event = Event.find(group[:event_id]) %>
-            <div class="event-card" data-carousel-target="card" data-url="<%= group_path(group) %>">
+            <div class="user-card" data-carousel-target="card" data-url="<%= group_path(group) %>">
               <% if event.image.attached? %>
-                <%= cl_image_tag event.image.key, class: "event-image", alt: "#{event.name} Image" %>
+                <%= cl_image_tag event.image.key, class: "user-image", alt: "#{event.name} Image" %>
               <% else %>
-                <%= image_tag "default-placeholder.jpg", class: "event-image", alt: "Default Event Image" %>
+                <%= image_tag "default-placeholder.jpg", class: "user-image", alt: "Default Event Image" %>
               <% end %>
-              <div class="event-info">
+              <div class="user-info">
                 <h6><%= event.name %></h6>
                 <p><%= group.bio %></p>
               </div>

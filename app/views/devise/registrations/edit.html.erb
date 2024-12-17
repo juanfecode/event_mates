@@ -22,6 +22,7 @@
         <p class="devise-section-title"><strong>Personal info</strong></p>
         <%= f.input :first_name, required: false, input_html: { autocomplete: "first-name" } %>
         <%= f.input :last_name, required: false, input_html: { autocomplete: "last-name" } %>
+        <%= f.input :hometown, required: false, input_html: { autocomplete: "hometown" } %>
         <%= f.input :dob,
                     as: :string,
                     required: false,
@@ -36,6 +37,7 @@
                     }%>
         <%= f.input :phone_number, required: false, input_html: { autocomplete: "phone-number" } %>
         <%= f.input :photo, as: :file, label: "Upload Avatar" %>
+        <%= f.input :bio, required: false, input_html: { autocomplete: "bio" } %>
 
         <hr class="devise-divider">
         <p class="devise-section-title"><strong>Account security</strong></p>
