@@ -17,6 +17,15 @@
           <% end %>
         </div>
       </div>
+      <div class="favorites-button">
+        <button type="button" class="create-group-btn">
+          <%= link_to new_group_path, class: "text-decoration-none d-flex align-items-center" do %>
+            <i class="fa-solid fa-plus me-1"></i>
+            <i class="fa-solid fa-user-group"></i>
+          <% end %>
+        </button>
+        <%= render "favorites_button" %>
+      </div>
     </div>
     <!-------Map-------->
     <div class="event-show-map">
@@ -29,18 +38,6 @@
     <div class="carousel-container" data-controller="carousel">
       <div class="event-show-section-headers">
         <h4>Interested in going</h4>
-        <div class="">
-          <% if current_user.favorite_events.pluck(:event_id).exclude?(@event.id)  %>
-          <div>
-            <%= link_to "Add Event to Favorites", event_favorite_events_path(@event), class: "favorite-btn add", data: { turbo_method: :post }%>
-          </div>
-          <% else %>
-            <div>
-              <% favorite_event = current_user.favorite_events.find_by(event_id: @event.id) %>
-              <%= link_to "Remove from Favorites", event_favorite_event_path(@event, favorite_event), class: "favorite-btn remove", data: { turbo_method: :delete }%>
-            </div>
-          <% end %>
-        </div>
       </div>
       <div class="carousel">
         <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>

@@ -88,51 +88,63 @@
 }
 
 .create-group-btn {
-  background-color: #198754; 
-  color: #212121;
-  border: 1px solid #198754;  
-  padding: 8px 15px;
+  background-color: transparent; 
+  color: #198754;
+  border: 1px solid transparent;  
+  padding: 8px;
   margin: 5px;
   text-decoration: none;
   border-radius: 20px; 
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
 
 .create-group-btn a {
-  color: #212121;
+  color: #198754;
 }
 
 .create-group-btn:hover {
   transform: scale(1.02);
+  font-size: 1.4rem; /* Increase font size slightly */
+  transition: font-size 0.2s ease-in-out; 
+}
+
+.favorites-button {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
 }
 
 .favorite-btn {
-  color: #212121;
-  padding: 8px 15px;
+  color: #198754;
+  padding: 8px;
   text-decoration: none;
+  font-size: 1.7rem;
   margin: 5px;
   border-radius: 20px; 
-  font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
 
-.favorite-btn:hover {
+.favorite-btn:hover i {
   transform: scale(1.02);
+  font-size: 1.9rem; /* Increase font size slightly */
+  transition: font-size 0.2s ease-in-out; 
 }
 
 .favorite-btn.add {
-  background-color: #198754; 
-  color: #212121;
-  border: 1px solid #198754;  
+  background-color: transparent; 
+  color: #198754;
+  border: 1px solid transparent;  
 }
 
 .favorite-btn.remove {
-  background-color: #dc3545; 
-  color: #212121;
-  border: 1px solid #dc3545;  
+  background-color: transparent; 
+  color: #dc3545;
+  border: 1px solid transparent;  
 }
 
 .favoite-btn:hover {
