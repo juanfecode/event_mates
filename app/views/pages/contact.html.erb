@@ -1,0 +1,61 @@
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #121212; color: #e0e0e0; }
+    .navbar-lewagon { background-color: #181818; }
+    .navbar-brand img { height: 40px; }
+    .home-banner {
+      background: url('https://images.pexels.com/photos/167474/pexels-photo-167474.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') center center/cover;
+      color: white;
+      text-align: center;
+      padding: 150px 20px;
+      position: relative;
+    }
+    .home-banner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+    }
+    .home-banner h1, .home-banner p {
+      position: relative;
+      z-index: 2;
+    }
+    .section-title { margin-bottom: 30px; text-transform: uppercase; font-weight: bold; }
+    .form-container { background: #181818; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); }
+    footer { background-color: #181818; color: white; padding: 20px 0; }
+    footer a { color: white; text-decoration: none; }
+  </style>
+
+    <div class="home-banner">
+    <h1><strong>Contact Us</strong></h1>
+    <p>We'd love to hear from you! Reach out for questions or feedback.</p>
+  </div>
+
+  <!-- Contact Form -->
+  <div class="container my-5">
+    <h2 class="section-title text-center">Get in Touch</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="form-container">
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Enter your name">
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control" id="message" rows="5" placeholder="Write your message here"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg rounded-pill w-100">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
