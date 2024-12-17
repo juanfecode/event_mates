@@ -52,6 +52,7 @@ gem "ruby-openai"
 gem "faker"
 gem "solid_queue"
 gem "solid_cable"
+gem 'neighbor'
 
 group :development, :test do
   gem "dotenv-rails"

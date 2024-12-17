@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :accepted_groups, through: :accepted_requests, source: :group
   has_many :group_messages
   has_one_attached :photo
+  has_many :questions
 
   def own_groups
     groups
