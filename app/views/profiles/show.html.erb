@@ -15,7 +15,7 @@
 
   <!-- User Information -->
   <div class="profile-info-container">
-    
+
     <!-- User Details Section -->
     <div class="profile-info-box small-box">
       <h5>Details</h5>
@@ -122,5 +122,70 @@
     </div>
   </div>
 </div>
+
+<!-- Suggested Events Section -->
+  <div class="carousel-container" data-controller="carousel">
+    <div class="carousel-header">
+      <h4>Suggested Events</h4>
+    </div>
+    <div class="carousel">
+      <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
+      <div class="carousel-track-container">
+      <div class="carousel-track" data-carousel-target="track">
+        <% @suggested_events.each do |event| %>
+          <div class="carousel-card" data-carousel-target="card" data-url="<%= event_path(event) %>">
+            <div class="carousel-card-content">
+              <% if event.image.attached? %>
+                <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
+              <% else %>
+                <%= image_tag "default-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
+              <% end %>
+              <div class="carousel-card-info">
+                <h6><%= event.name %></h6>
+                <p><%= event.date.strftime("%b %d, %Y") %></p>
+              </div>
+              <div class="carousel-card-info-2">
+                <p><%= event.location %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      </div>
+      <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
+    </div>
+  </div>
+
+<!-- Suggested Profiles Section -->
+
+  <div class="carousel-container" data-controller="carousel">
+    <div class="carousel-header">
+      <h4>Suggested Events</h4>
+    </div>
+    <div class="carousel">
+      <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
+      <div class="carousel-track-container">
+      <div class="carousel-track" data-carousel-target="track">
+        <% @suggested_profiles.each do |profile| %>
+          <div class="carousel-card" data-carousel-target="card" data-url="<%= profile_path(profile) %>">
+            <div class="carousel-card-content">
+              <% if profile.photo.attached? %>
+                <%= cl_image_tag profile.photo.key, class: "carousel-card-img", alt: "#{profile.first_name} Image" %>
+              <% else %>
+                <%= image_tag "avatar-placeholder.png", class: "carousel-card-img", alt: "Default Event Image" %>
+              <% end %>
+              <div class="carousel-card-info">
+                <h6><%= profile.first_name %></h6>
+              </div>
+              <div class="carousel-card-info-2">
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      </div>
+      <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
+    </div>
+  </div>
 
 </div>

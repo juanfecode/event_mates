@@ -15,7 +15,7 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem "jbuilder"
+#
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -50,7 +50,7 @@ gem "cloudinary"
 gem "selenium-webdriver"
 gem "ruby-openai"
 gem "faker"
-
+gem "solid_queue"
 gem "solid_cable"
 
 group :development, :test do
