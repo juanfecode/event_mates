@@ -13,8 +13,11 @@ class EventsController < ApplicationController
     @groups = @event.groups
     @favorites = @event.favorited_by
     @tags = @event.tags
+    @marker = {
+      lat: @event.latitude,
+      lng: @event.longitude
+    }
   end
-
   def new
     @event = Event.new
     @tags = Tag.all
