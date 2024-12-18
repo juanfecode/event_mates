@@ -46,6 +46,14 @@
   box-sizing: border-box;
 }
 
+.devise-form-inputs input:focus,
+.devise-form-inputs textarea:focus,
+.devise-form-inputs select:focus {
+  background-color: #333333; 
+  border: 1px solid #555555;
+  color: lightgray;
+}
+
 .devise-form-inputs input:disabled {
   background-color: #444444; /* Adjust color for disabled inputs */
   color: #999999; /* Make text lighter to show it's disabled */
