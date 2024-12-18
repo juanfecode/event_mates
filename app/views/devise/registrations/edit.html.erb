@@ -3,7 +3,7 @@
     <h4 class="devise-title">Edit your information</h4>
     <hr class="devise-divider">
     
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, data: { turbo: false } }) do |f| %>
+    <%= simple_form_for(@user, url: user_registration_path, method: :put, data: { turbo: true, turbo_frame: "_top", turbo_redirect: profile_path(current_user.id) }) do |f| %>
       <%= f.error_notification %>
 
       <div class="devise-form-inputs">
