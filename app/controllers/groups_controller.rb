@@ -28,6 +28,7 @@ class GroupsController < ApplicationController
 
   def invite
     @group = Group.find(params[:id])
+    @event = @group.event
     favorite_users = @group.event.favorited_by.reject { |user| user == current_user }
     @users = favorite_users.reject do |user|
       user.member?(@group) || user.invited_or_requested?(@group)
@@ -50,6 +51,7 @@ class GroupsController < ApplicationController
 
   def admin
     # group set by set_group
+    @event = @group.event
     if current_user == @group.owner
       @incoming_requests = @group.incoming_requests
       @outgoing_requests = @group.outgoing_requests

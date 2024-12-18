@@ -7,4 +7,10 @@ class PagesController < ApplicationController
 
   def about_us
   end
+
+  def policies
+  end
+
+  def contact
+  end
 end

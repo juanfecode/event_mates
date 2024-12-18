@@ -19,7 +19,7 @@
       </div>
     </div>
   </div>
-  <%= render "groups/menu", group: @group %>
+  <%= render "groups/menu", group: @group, info_class: "menu__item active", messages_class: "menu__item", admin_class: "menu__item" %>
     <div class="group-container">
         <%= turbo_frame_tag :group_content do %>
             <%= render "groups/info", group: @group %>

@@ -1,0 +1,48 @@
+<style>
+    body { font-family: Arial, sans-serif; background-color: #121212; color: #e0e0e0; }
+    .navbar-lewagon { background-color: #181818; }
+    .navbar-brand img { height: 40px; }
+    .home-banner {
+      background: url('https://images.pexels.com/photos/167474/pexels-photo-167474.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') center center/cover;
+      color: white;
+      text-align: center;
+      padding: 150px 20px;
+      position: relative;
+    }
+    .home-banner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+    }
+    .home-banner h1, .home-banner p {
+      position: relative;
+      z-index: 2;
+    }
+    .section-title { margin-bottom: 30px; text-transform: uppercase; font-weight: bold; }
+    .section-content p { line-height: 1.8; font-size: 1.1rem; }
+    footer { background-color: #181818; color: white; padding: 20px 0; }
+    footer a { color: white; text-decoration: none; }
+    .policy-list li { margin-bottom: 15px; }
+  </style>
+
+  <div class="home-banner">
+    <h1><strong>Community Policies</strong></h1>
+    <p>Creating a safe, fun, and inclusive environment for all EventMates users.</p>
+  </div>
+
+  <!-- Policies Content -->
+  <div class="container my-5">
+    <h2 class="section-title text-center">Guidelines for Group Interactions</h2>
+    <div class="section-content">
+      <ul class="policy-list">
+        <li><strong>Be Respectful:</strong> Treat all group members with kindness and respect. Discriminatory, hateful, or offensive language will not be tolerated.</li>
+        <li><strong>No Spamming:</strong> Avoid posting irrelevant or repetitive messages within groups. Keep discussions focused on the event or group purpose.</li>
+        <li><strong>Inclusive Communication:</strong> Encourage everyone to participate and share their thoughts. EventMates is a community for all.</li>
+        <li><strong>Event Planning Etiquette:</strong> Be considerate when coordinating plans. Clearly communicate meeting points, timings, and any changes.</li>
+        <li><strong>Privacy Matters:</strong> Do not share personal information of other members without their explicit consent.</li>
+        <li><strong>Report Misconduct:</strong> If you observe inappropriate behavior, report it to the EventMates team for immediate action.</li>
+        <li><strong>Build Positive Connections:</strong> Our goal is to create friendships and enhance event experiences. Be supportive and welcoming to new members.</li>
+      </ul>
+    </div>
+  </div>

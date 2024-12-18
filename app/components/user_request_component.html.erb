@@ -1,28 +1,43 @@
 <hr>
-    <p><strong>Group members</strong></p>
-    <div class="carousel-container" data-controller="carousel">
-        <div class="carousel">
-            <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
-            <div class="carousel-track-container">
-                <div class="carousel-track" data-carousel-target="track">
-                    <% @members.each do |member| %>
-                        <div class="request-card" data-carousel-target="card" data-url="<%= profile_path(member) %>">
-                            <% if member.photo.attached? %>
-                                <%= cl_image_tag member.photo.key, class: "request-image", alt: "#{member.first_name} Image" %>
-                            <% else %>
-                                <%= image_tag "banner-placeholder.jpg", class: "request-image", alt: "Default Event Image" %>
-                            <% end %>
-                            <div class="request-info">
-                                <h6><%= member.first_name %> <%= member.last_name %></h6>
-                                <p><%= helpers.calculate_age(member.dob) %> years old</p>
+    <h3><strong>Group members</strong></h3>
+    <% if @members.any? %>
+        <div class="carousel-container" data-controller="carousel">
+            <div class="carousel">
+                <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
+                <div class="carousel-track-container">
+                    <div class="carousel-track" data-carousel-target="track">
+                        <% @members.each do |member| %>
+                            <div class="request-card" data-carousel-target="card" data-url="<%= profile_path(member) %>">
+                                <% if member.photo.attached? %>
+                                    <%= cl_image_tag member.photo.key, class: "request-image", alt: "#{member.first_name} Image" %>
+                                <% else %>
+                                    <%= image_tag "banner-placeholder.jpg", class: "request-image", alt: "Default Event Image" %>
+                                <% end %>
+                                <div class="request-info">
+                                    <h6><%= member.first_name %> <%= member.last_name %></h6>
+                                    <p><%= helpers.calculate_age(member.dob) %> years old</p>
+                                </div>
+                                <div class="text-center">
+                                    <% if helpers.current_user == @group.owner %>
+                                        <%= button_to "Remove", remove_member_path(@group.requests.find_by(user: member)),
+                                                                method: :patch,
+                                                                class: "btn btn-danger btn-sm rounded-pill" %>
+                                    <% end %>                            
+                                </div>
                             </div>
-                            <div class="text-center">
-                                <%= button_to "Remove", remove_member_path(@group.requests.find_by(user: member)), method: :patch, class: "btn btn-danger btn-sm rounded-pill" %>
-                            </div>
-                        </div>
-                    <% end %>
+                        <% end %>
+                    </div>
                 </div>
+                <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
             </div>
-            <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
         </div>
-    </div>
+    <% elsif helpers.current_user == @group.owner %>
+        <div>
+            <p>There are currently no members in this group. <strong>Feel free to invite profiles to join!</strong></p>
+            <div class="d-flex justify-content-center">
+                <%= link_to "+ Invite", invite_group_path, data: { turbo_action: :advance }, class: "btn btn-primary text-center btn-sm w-25 rounded-pill mt-3" %>
+            </div>
+        </div>
+    <% else %>
+        <p>There are currently no members in this group.</p>
+    <% end %>

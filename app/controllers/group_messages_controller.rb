@@ -1,6 +1,7 @@
 class GroupMessagesController < ApplicationController
   def index
     @group = Group.find(params[:id])
+    @event = @group.event
     if current_user.member?(@group)
       @messages = GroupMessage.where(group: @group)
       @message = GroupMessage.new
