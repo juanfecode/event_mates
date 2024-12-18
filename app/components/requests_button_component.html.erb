@@ -1,20 +1,30 @@
 <% if @group.requests.where(user: helpers.current_user).empty? %>
-    <%= link_to "Ask to join", request_form_path(type: "ask"), data: { turbo_frame: "remote_modal" }, class: "btn btn-primary btn-sm rounded-pill" %>
+    <%= link_to "Ask to join", request_form_path(type: "ask"),
+                               data: { turbo_frame: "remote_modal_message" },
+                               class: "btn btn-primary btn-sm rounded-pill" %>
 
 <% elsif @group.requests.where(user: helpers.current_user).where(status: "accepted").any? %>
-    <%= button_to "Leave group", cancel_request_path(@group.requests.find_by(user: helpers.current_user)), method: :delete, class: "btn btn-secondary btn-sm rounded-pill" %>
+    <%= link_to "Leave group", request_form_path(type: "leave", request_id: @group.requests.find_by(user: helpers.current_user).id),
+                               data: { turbo_frame: "remote_modal_confirm" },
+                               class: "btn btn-secondary btn-sm rounded-pill" %>
 
 <% elsif @group.requests.where(user: helpers.current_user).where(status: "removed").any? %>
     <p class="small text-secondary"><em>You have been removed from this group by the group owner. If you believe this was a misunderstanding, you can request to rejoin. Please review and follow our
-        <%= link_to "community policies", root_path %>
+        <%= link_to "community policies", policies_path %>
         regarding group interactions to ensure a positive experience for everyone.</em></p>
-    <%= button_to "Ask to re-join", ask_to_rejoin_path(@group.requests.find_by(user: helpers.current_user)), method: :patch, data: { turbo_frame: "remote_modal" }, class: "btn btn-primary btn-sm rounded-pill" %>
+    <%= link_to "Ask to re-join", request_form_path(type: "rejoin", request_id: @group.requests.find_by(user: helpers.current_user).id),
+                                  data: { turbo_frame: "remote_modal_message" },
+                                  class: "btn btn-primary btn-sm rounded-pill" %>
 
 <% elsif @group.requests.where(user: helpers.current_user).where(status: "pending_join").any? %>
     <p class="small text-secondary">You have been invited to this group</p>
-    <%= button_to "Accept invite", approve_request_path(@group.requests.find_by(user: helpers.current_user)), method: :patch, class: "btn btn-success btn-sm rounded-pill" %>
+    <%= button_to "Accept invite", approve_request_path(@group.requests.find_by(user: helpers.current_user)),
+                                   method: :patch,
+                                   class: "btn btn-success btn-sm rounded-pill" %>
 <% else %>
     <p class="small text-secondary"><em>Request already sent. Waiting for approval.</em></p>
-    <%= button_to "Cancel my request", cancel_request_path(@group.requests.find_by(user: helpers.current_user)), method: :delete, class: "btn btn-secondary btn-sm rounded-pill" %>
+    <%= link_to "Cancel my request", request_form_path(type: "cancel", request_id: @group.requests.find_by(user: helpers.current_user)),
+                                       data: { turbo_frame: "remote_modal_confirm" },
+                                       class: "btn btn-secondary btn-sm rounded-pill" %>
 <% end %>
     

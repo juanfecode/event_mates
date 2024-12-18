@@ -32,14 +32,16 @@ class ProfilesController < ApplicationController
     coincidence = []
     user = User.find(params[:id])
     user_tags = user.matching_profile
-    User.all.each do |u|
-      matching_score = (u.matching_profile - user_tags)
-      if matching_score == []
-        perfect_coincidence << u
-      elsif user_tags.size.zero? || (user_tags.size - matching_score.size) / user_tags.size < 0.2
-        coincidence << u
+    profiles = User.all
+    profiles.each do |profile|
+      matching_score = (profile.matching_profile - user_tags)
+      if matching_score.empty?
+        perfect_coincidence << profile
+      elsif !matching_score.empty? && matching_score.size.fdiv(user_tags.size) < 0.3
+        coincidence << profile
       end
     end
-    perfect_coincidence + coincidence
+    suggested_profiles = perfect_coincidence + coincidence
+    suggested_profiles.reject { |profile| profile == user }
   end
 end

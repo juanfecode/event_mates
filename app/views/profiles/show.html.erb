@@ -8,8 +8,11 @@
         <%= image_tag "avatar-placeholder.png", class: "profile-avatar-img", alt: "Default Avatar" %>
       <% end %>
     </div>
-    <div class="profile-name">
+    <div class="profile-name d-flex">
       <h1><%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %></h1>
+      <div class="position-relative" style="right: -72px;top: 15px;">
+        <%= link_to "Create new Event", new_event_path, class: "tags-save-btn text-decoration-none" %>
+      </div>
     </div>
   </div>
 
@@ -124,66 +127,67 @@
 </div>
 
 <!-- Suggested Events Section -->
-  <div class="carousel-container" data-controller="carousel">
-    <div class="carousel-header">
-      <h4>Suggested Events</h4>
-    </div>
-    <div class="carousel">
-      <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
-      <div class="carousel-track-container">
-      <div class="carousel-track" data-carousel-target="track">
-        <% @suggested_events.each do |event| %>
-          <div class="carousel-card" data-carousel-target="card" data-url="<%= event_path(event) %>">
-            <div class="carousel-card-content">
-              <% if event.image.attached? %>
-                <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
-              <% else %>
-                <%= image_tag "default-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
-              <% end %>
-              <div class="carousel-card-info">
-                <h6><%= event.name %></h6>
-                <p><%= event.date.strftime("%b %d, %Y") %></p>
-              </div>
-              <div class="carousel-card-info-2">
-                <p><%= event.location %></p>
+  <% if @suggested_events.any? %>
+    <div class="carousel-container" data-controller="carousel">
+      <div class="carousel-header">
+        <h4>Suggested Events</h4>
+      </div>
+      <div class="carousel">
+        <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
+        <div class="carousel-track-container">
+        <div class="carousel-track" data-carousel-target="track">
+          <% @suggested_events.each do |event| %>
+            <div class="carousel-card" data-carousel-target="card" data-url="<%= event_path(event) %>">
+              <div class="carousel-card-content">
+                <% if event.image.attached? %>
+                  <%= cl_image_tag event.image.key, class: "carousel-card-img", alt: "#{event.name} Image" %>
+                <% else %>
+                  <%= image_tag "default-placeholder.jpg", class: "carousel-card-img", alt: "Default Event Image" %>
+                <% end %>
+                <div class="carousel-card-info">
+                  <h6><%= event.name %></h6>
+                  <p><%= event.date.strftime("%b %d, %Y") %></p>
+                </div>
+                <div class="carousel-card-info-2">
+                  <p><%= event.location %></p>
+                </div>
               </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
+        </div>
+        <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
       </div>
-      </div>
-      <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
     </div>
-  </div>
+  <% end %>
 
 <!-- Suggested Profiles Section -->
-
-  <div class="carousel-container" data-controller="carousel">
-    <div class="carousel-header">
-      <h4>Suggested Mates</h4>
-    </div>
-    <div class="carousel">
-      <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
-      <div class="carousel-track-container">
-      <div class="carousel-track" data-carousel-target="track">
-        <% @suggested_profiles.each do |profile| %>
-          <div class="" data-carousel-target="card" data-url="<%= profile_path(profile) %>">
-            <div class="carousel-card-content">
+  <% if current_user.id == @user.id %>
+    <div class="carousel-container" data-controller="carousel">
+      <div class="carousel-header">
+        <h4>Suggested Mates</h4>
+      </div>
+      <div class="carousel">
+        <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
+        <div class="carousel-track-container">
+        <div class="carousel-track" data-carousel-target="track">
+          <% @suggested_profiles.each do |profile| %>
+          <div class="user-card" data-carousel-target="card" data-url="<%= profile_path(profile) %>">
               <% if profile.photo.attached? %>
-                <%= cl_image_tag profile.photo.key, class: "event-image", alt: "#{profile.first_name} Image" %>
+                <%= cl_image_tag profile.photo.key, class: "user-image", alt: "#{profile.first_name} Image" %>
               <% else %>
-                <%= image_tag "avatar-placeholder.png", class: "event-image", alt: "Default Event Image" %>
+                <%= image_tag "banner-placeholder.jpg", class: "event-image", alt: "Default Event Image" %>
               <% end %>
-              <div class="event-info">
-                <h6><%= profile.first_name %></h6>
+              <div class="user-info">
+                <h6><%= profile.first_name %> <%= profile.last_name %></h6>
+                <p><%= calculate_age(profile.dob) %> years old</p>
               </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
+        </div>
+        <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
       </div>
-      </div>
-      <button class="carousel-arrow right-arrow" data-action="click->carousel#slideRight" data-carousel-target="rightArrow">›</button>
     </div>
-  </div>
-
+  <% end %>
 </div>

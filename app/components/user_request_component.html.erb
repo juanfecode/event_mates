@@ -7,7 +7,7 @@
                 <div class="carousel-track-container">
                     <div class="carousel-track" data-carousel-target="track">
                         <% @members.each do |member| %>
-                            <div class="request-card" data-carousel-target="card" data-url="<%= profile_path(member) %>">
+                            <div class="request-card" data-carousel-target="card">
                                 <% if member.photo.attached? %>
                                     <%= cl_image_tag member.photo.key, class: "request-image", alt: "#{member.first_name} Image" %>
                                 <% else %>
@@ -19,9 +19,9 @@
                                 </div>
                                 <div class="text-center">
                                     <% if helpers.current_user == @group.owner %>
-                                        <%= button_to "Remove", remove_member_path(@group.requests.find_by(user: member)),
-                                                                method: :patch,
-                                                                class: "btn btn-danger btn-sm rounded-pill" %>
+                                        <%= link_to "Remove member", request_form_path(type: "remove", request_id: @group.requests.find_by(user: member).id),
+                                                                   data: { turbo_frame: "remote_modal_confirm" },
+                                                                   class: "btn btn-secondary btn-sm rounded-pill" %>
                                     <% end %>                            
                                 </div>
                             </div>

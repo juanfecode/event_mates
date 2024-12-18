@@ -18,14 +18,18 @@ class RequestsController < ApplicationController
 
   def ask_to_rejoin
     @request = Request.find(params[:id])
-    @request.update(status: "pending_allow")
+    @request.update(message: request_params[:message], status: "pending_allow")
     redirect_to @request.group
   end
 
   def request_form
     # authorize :request, :request_form?
     @type = params[:type]
-    @request = Request.new
+    if @type == 'ask'
+      @request = Request.new
+    else
+      @request = Request.find(params[:request_id])
+    end
   end
 
   def approve_request
