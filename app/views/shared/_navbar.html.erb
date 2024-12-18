@@ -3,7 +3,7 @@
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag(asset_path('event-mates-logo.png'), alt: 'logo') %>
     <% end %>
-
+    <%= turbo_stream_from "profile_#{current_user.id}_notifications" %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -14,16 +14,7 @@
           <li class="nav-item active">
             <%= link_to "Explore", events_path, class: "nav-link" %>
           </li>
-          <li class="nav-item active">
-            <%= link_to "Invites", "#", class: "nav-link" %>
-          </li>
-          <li class="nav-item active">
-            <%= link_to "Requests", "#", class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
-          </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" id="profile-dropdown" style="position: relative;">
           <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <% if current_user.photo.attached? %>
               <%= cl_image_tag current_user.photo.key, class: "avatar-bordered", alt: "User Avatar" %>

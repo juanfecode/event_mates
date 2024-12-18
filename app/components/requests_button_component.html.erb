@@ -10,7 +10,7 @@
 
 <% elsif @group.requests.where(user: helpers.current_user).where(status: "removed").any? %>
     <p class="small text-secondary"><em>You have been removed from this group by the group owner. If you believe this was a misunderstanding, you can request to rejoin. Please review and follow our
-        <%= link_to "community policies", policies_path %>
+        <%= link_to "community policies", policies_path, target: "_blank" %>
         regarding group interactions to ensure a positive experience for everyone.</em></p>
     <%= link_to "Ask to re-join", request_form_path(type: "rejoin", request_id: @group.requests.find_by(user: helpers.current_user).id),
                                   data: { turbo_frame: "remote_modal_message" },
