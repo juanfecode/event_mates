@@ -6,6 +6,7 @@
         <%= simple_form_for [@event] do |f| %>
         <div class="devise-form-inputs">
           <%= f.input :name %>
+          <%= f.input :location, label: 'City'%>
           <%= f.input :address %>
           <%= f.input :description %>
           <%= f.input :date,

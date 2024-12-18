@@ -13,10 +13,11 @@ class EventsController < ApplicationController
     @groups = @event.groups
     @favorites = @event.favorited_by
     @tags = @event.tags
-    @marker = {
+    @marker = [{
       lat: @event.latitude,
-      lng: @event.longitude
-    }
+      lng: @event.longitude,
+      info_window_html: render_to_string(partial: "event_window", locals: { event: @event })
+    }]
   end
   def new
     @event = Event.new
@@ -27,6 +28,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    @event.address = "#{@event.address}, #{@event.location}"
     if @event.save!
       session[:event_tags].each do |tag|
         @tag = Tag.find(tag["id"])
@@ -47,6 +49,6 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:name, :date, :address, :description)
+    params.require(:event).permit(:name, :date, :location, :description, :address)
   end
 end
