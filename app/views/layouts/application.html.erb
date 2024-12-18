@@ -23,7 +23,8 @@
     <%= render "shared/flashes" %>
 
     <%= yield %>
-     <%= turbo_frame_tag "remote_modal" %>
+     <%= turbo_frame_tag "remote_modal_message" %>
+     <%= turbo_frame_tag "remote_modal_confirm" %>
     <!-- Remove the container if you want to extend the Footer to full width. -->
   <!-- Footer -->
   <div class="text-center text-white" style="background-color:#181818">
