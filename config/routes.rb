@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   post "/groups/:id/messages", to: "group_messages#create_message", as: "create_message"
 
   get "/about_us", to: "pages#about_us"
-  get "/policies", to: "pages#policies"
+  get "/policies", to: "pages#policies", as: "policies"
   get "/contact", to: "pages#contact"
 
 end

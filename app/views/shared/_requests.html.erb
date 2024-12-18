@@ -1,13 +1,13 @@
 <% if outgoing_requests.any?%>
     <hr>
-    <h3 class="mb-5"><strong>Outgoing requests</strong></h3>
+    <h3 class="mb-4"><strong>Outgoing requests</strong></h3>
     <div class="carousel-container" data-controller="carousel">
         <div class="carousel">
             <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
             <div class="carousel-track-container">
                 <div class="carousel-track" data-carousel-target="track">
                     <% outgoing_requests.each do |request| %>
-                        <div class="request-card" data-carousel-target="card" data-url="<%= profile_path(request.user) %>">
+                        <div class="request-card" data-carousel-target="card">
                             <% if request.user.photo.attached? %>
                                 <%= cl_image_tag request.user.photo.key, class: "request-image", alt: "#{request.user.first_name} Image" %>
                             <% else %>
@@ -18,7 +18,9 @@
                                 <p><%= calculate_age(request.user.dob) %> years old</p>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <%= link_to "Cancel", cancel_request_path(request), data: { turbo_method: :delete }, class: "btn btn-secondary btn-sm rounded-pill" %>
+                                <%= link_to "Cancel", request_form_path(type: "cancel", request_id: request.id),
+                                  data: { turbo_frame: "remote_modal_confirm" },
+                                  class: "btn btn-secondary btn-sm rounded-pill" %>
                             </div>
                         </div>
                     <% end %>
@@ -30,14 +32,14 @@
 <% end %>
 <% if incoming_requests.any? %>
     <hr>
-    <h3 class="mb-5"><strong>Incoming requests</strong></h3>
+    <h3 class="mb-4"><strong>Incoming requests</strong></h3>
     <div class="carousel-container" data-controller="carousel">
         <div class="carousel">
             <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
             <div class="carousel-track-container">
                 <div class="carousel-track" data-carousel-target="track">
                     <% incoming_requests.each do |request|  %>
-                        <div class="request-card" data-carousel-target="card" data-url="<%= profile_path(request.user) %>">
+                        <div class="request-card" data-carousel-target="card">
                             <% if request.user.photo.attached? %>
                                 <%= cl_image_tag request.user.photo.key, class: "request-image", alt: "#{request.user.first_name} Image" %>
                             <% else %>
@@ -48,8 +50,12 @@
                                 <p><%= calculate_age(request.user.dob) %> years old</p>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <%= button_to "Approve", approve_request_path(request), method: :patch,  class: "btn btn-success btn-sm rounded-pill mx-1" %>
-                                <%= button_to "Reject", reject_request_path(request), method: :patch, class: "btn btn-info btn-sm rounded-pill mx-1" %>
+                                <%= link_to "View", request_form_path(type: "approve", request_id: request.id),
+                                                                                        data: { turbo_frame: "remote_modal_confirm" },
+                                                                                        class: "btn btn-primary btn-sm rounded-pill mx-2 w-25" %>
+                                <%= link_to "Reject", request_form_path(type: "reject", request_id: request.id),
+                                                                                        data: { turbo_frame: "remote_modal_confirm" },
+                                                                                        class: "btn btn-secondary btn-sm rounded-pill mx-2 w-25" %>
                             </div>
                         </div>
                     <% end %>
