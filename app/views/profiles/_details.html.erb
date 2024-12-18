@@ -1,0 +1,31 @@
+<% if current_user.id == @user.id %>
+  <div class="invitations-container">
+    <%if @user.invitations.empty? %>
+      <p>No invitations...</p>
+    <% else %>
+      <% @user.invitations.each do |invite| %>
+        <div class="profile-invite-container">
+          <div class="profile-invite-info">
+            <p><%= Event.find(invite.event_id).name %> | <%= Group.find(invite.group_id).bio %></p>
+          </div>
+          <div class="profile-invite-actions">
+            <%= link_to approve_request_path(invite),
+              class: "profile-invite-btn accept",
+              data: { turbo_method: :patch } do %>
+                <i class="fa-solid fa-check"></i>
+            <% end %>
+            <%= link_to request_form_path(type: "cancel", request_id: invite.id),
+              class: "profile-invite-btn reject",
+              data: { turbo_frame: "remote_modal_confirm" } do %>
+                <i class="fa-solid fa-xmark"></i>
+              <% end %>
+          </div>
+          <hr>
+        </div>
+      <% end %> 
+    <% end  %>
+  </div>
+<% else %>
+  <h6>Age: <%= calculate_age(@user.dob) %></h6>
+  <h6>Hometown: <%= @user.hometown || "Not provided" %></h6>
+<% end %>
