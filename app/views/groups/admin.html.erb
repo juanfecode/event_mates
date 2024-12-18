@@ -1,14 +1,39 @@
-<div class="container mt-3 p-3 border">
-    <%= turbo_frame_tag :group_content do %>
-        <div class="d-block text-center">
-            <%= link_to "+ Invite", invite_group_path, class: "btn btn-primary btn-lg rounded-pill mb-5" %>
-            <% if @outgoing_requests.any? || @incoming_requests.any? %>
-                <%= render "shared/requests", outgoing_requests: @outgoing_requests,
-                                                incoming_requests: @incoming_requests %>
-            <% else %>
-                <p> There are no requests pending. You can send out invites clicking on the + Invite button.</p>
-            <% end %>
+<div class="page-background">
+    <div class="event-show-banner">
+        <div class="event-show-image" style="background-image: url('<%= @event.image.attached? ? cl_image_path(@event.image.key) : asset_path("banner-placeholder.jpg") %>');">
+            <div class="event-show-overlay">
+                <div class="event-show-header">
+                    <h1><%= @event.name %></h1>
+                    <p>Date: <%= @event.date.strftime("%B %d, %Y") %></p>
+                    <p>Location: <%= @event.location %></p>
+                </div>
+                <div class="tags-box">
+                    <% if @event.tags.present? %>
+                    <% @event.tags.each do |tag| %>
+                        <span class="tag active"><%= tag.name %></span>
+                    <% end %>
+                    <% else %>
+                    <p>No tags available.</p>
+                    <% end %>
+                </div>
+            </div>
         </div>
-    <% end %>
+    </div>
+    <%= render "groups/menu", group: @group, info_class: "menu__item", messages_class: "menu__item", admin_class: "menu__item active" %>
+    <div class="group-container">
+        <%= turbo_frame_tag :group_content do %>
+            <div>
+                <div class="d-flex justify-content-center">
+                    <%= link_to "+ Invite", invite_group_path, data: { turbo_action: :advance }, class: "btn btn-primary w-25 btn-lg rounded-pill mb-3" %>
+                </div>
+                <p class="text-center mb-5 small">Invite more peolpe to your group!</p>
+                <% if @outgoing_requests.any? || @incoming_requests.any? %>
+                    <%= render "shared/requests", outgoing_requests: @outgoing_requests,
+                                                    incoming_requests: @incoming_requests %>
+                <% else %>
+                    <p> There are no requests pending. You can send out invites clicking on the + Invite button.</p>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
 </div>
-                                

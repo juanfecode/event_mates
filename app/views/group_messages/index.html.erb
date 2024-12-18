@@ -1,25 +1,59 @@
-<%= turbo_frame_tag :group_content do %>
-    <div class="container w-100 mt-3 p-3 shadow">
-        <%= turbo_stream_from "group_#{@group.id}_messages" %>
-        <div class="messages" style="height: 500px; overflow-y: auto;">
-            <div class="messages-overlay" id="messages">
-                <% @messages.each do |message| %>
-                    <%= render "group_messages/message", message: message, user: current_user %>
-                <% end %>
+<div class="page-background">
+    <div class="event-show-banner">
+        <div class="event-show-image" style="background-image: url('<%= @event.image.attached? ? cl_image_path(@event.image.key) : asset_path("banner-placeholder.jpg") %>');">
+            <div class="event-show-overlay">
+                <div class="event-show-header">
+                    <h1><%= @event.name %></h1>
+                    <p>Date: <%= @event.date.strftime("%B %d, %Y") %></p>
+                    <p>Location: <%= @event.location %></p>
+                </div>
+                <div class="tags-box">
+                    <% if @event.tags.present? %>
+                    <% @event.tags.each do |tag| %>
+                        <span class="tag active"><%= tag.name %></span>
+                    <% end %>
+                    <% else %>
+                    <p>No tags available.</p>
+                    <% end %>
+                </div>
             </div>
         </div>
-        <div class="mt-3">
-            <%= simple_form_for [@group, @message],
-                                                    url: create_message_path,
-                                                    html: {
-                                                        class: "d-flex",
-                                                        data: { controller: "reset",
-                                                                action: "turbo:submit-end->reset#reset" }
-                                                        } do |f| %>
-                <%= hidden_field_tag :session_user, current_user.id %>
-                <%= f.input :message, label: false, wrapper_html: {class: "flex-grow-1"} %>
-                <%= f.submit "Send", class: "btn btn-primary mb-3" %>
-            <% end %>
-        </div>
     </div>
-<% end %>
+    <%= render "groups/menu", group: @group, info_class: "menu__item", messages_class: "menu__item active", admin_class: "menu__item" %>
+    <div class="group-container">
+        <%= turbo_frame_tag :group_content do %>
+            <div class="container w-100 mt-3 p-3 shadow">
+                
+                <% if @group.members.count > 0 %>
+
+                    <%= turbo_stream_from "group_#{@group.id}_messages" %>
+                    <div class="messages" style="height: 500px; overflow-y: auto;">
+                        <div class="messages-overlay" id="messages">
+                            <% @messages.each do |message| %>
+                                <%= render "group_messages/message", message: message, user: current_user %>
+                            <% end %>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <%= simple_form_for [@group, @message],
+                                                                url: create_message_path,
+                                                                html: {
+                                                                    class: "d-flex",
+                                                                    data: { controller: "reset",
+                                                                            action: "turbo:submit-end->reset#reset" }
+                                                                    } do |f| %>
+                            <%= hidden_field_tag :session_user, current_user.id %>
+                            <%= f.input :message, label: false, wrapper_html: {class: "flex-grow-1"} %>
+                            <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+                        <% end %>
+                    </div>
+                <% else %>
+                    <div class="d-flex justify-content-center">
+                        <%= link_to "+ Invite", invite_group_path, data: { turbo_action: :advance }, class: "btn btn-primary w-25 btn-sm rounded-pill mb-3" %>
+                    </div>
+                    <p class="small text-center">Currently this group has no other members. Please invite more profiles to join to start a conversation!</p>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+</div>

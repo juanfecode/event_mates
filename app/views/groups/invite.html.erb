@@ -1,35 +1,73 @@
-<%= turbo_frame_tag :group_content do %>
-    <% if @group.owner?(current_user) %>
-    <%= simple_form_for @group, url: invite_requests_path, method: :post do |f| %>
-        <!-- Users as Cards -->
-        <div class="row">
-            <p><strong>Invite more users to your group:</strong></p>
-            <% @users.each do |user| %>
-            <div class="col-md-4">
-                <div class="card mb-3" style="width: 18rem;">
-                <div class="card-body text-center">
-                    <!-- User Image (we're missing this... need new column) -->
-                    <%# image_tag(user.avatar.attached? ? url_for(user.avatar) : 'https://via.placeholder.com/100', class: "card-img-top rounded-circle mb-3", alt: user.name) %>
-    
-                    <!-- User Info (we're missing some things here: name, age... probably don't want to be giving out emails... need new columns) -->
-                    <h5 class="card-title"><%# user.name %></h5>
-                    <p class="card-text"><%= user.email %></p>
-    
-                    <!-- User Checkbox -->
-                    <div class="form-check">
-                    <%= check_box_tag 'group[user][]', user.id, class: "form-check-input", id: "user_#{user.id}" %>
-                    <%= label_tag "user_#{user.id}", "Invite", class: "form-check-label" %>
+    <div class="page-background">
+        <div class="event-show-banner">
+            <div class="event-show-image" style="background-image: url('<%= @event.image.attached? ? cl_image_path(@event.image.key) : asset_path("banner-placeholder.jpg") %>');">
+                <div class="event-show-overlay">
+                    <div class="event-show-header">
+                        <h1><%= @event.name %></h1>
+                        <p>Date: <%= @event.date.strftime("%B %d, %Y") %></p>
+                        <p>Location: <%= @event.location %></p>
+                    </div>
+                    <div class="tags-box">
+                        <% if @event.tags.present? %>
+                        <% @event.tags.each do |tag| %>
+                            <span class="tag active"><%= tag.name %></span>
+                        <% end %>
+                        <% else %>
+                        <p>No tags available.</p>
+                        <% end %>
                     </div>
                 </div>
-                </div>
             </div>
-            <% end %>
-        </div>
-    
-        <!-- Submit Button -->
-        <%= f.submit 'Invite to group', class: 'btn btn-primary w-100 rounded-pill' %>
-    <% end %>
-    <% else %>
-        You are not allowed
-    <% end %>    
-<% end %>
+    </div>
+    <%= render "groups/menu", group: @group, info_class: "menu__item", messages_class: "menu__item", admin_class: "menu__item active" %>
+    <div class="group-container">
+        <%= turbo_frame_tag :group_content do %>
+            <% if @group.owner?(current_user) %>
+                <div class="group-header">
+                    <h1>Invite People To Your Group</h1>  
+                </div>
+                <%= simple_form_for @group, url: invite_requests_path, method: :post do |f| %>
+                    <!-- Users as Cards -->
+                    <div class="row">
+                    <% @users.each do |user| %>
+                        <div 
+                            class="col-md-2"
+                            data-controller="card-selection"
+                            data-action="click->card-selection#toggleCard">
+                            <label for="user_<%= user.id %>" class="group-card-label">
+                            <div class="group-card" data-card-selection-target="card">
+                                <% if user.photo.attached? %>
+                                <%= cl_image_tag user.photo.key, class: "group-image", alt: "#{user.first_name} Image" %>
+                                <% else %>
+                                <%= image_tag "default-placeholder.jpg", class: "group-image", alt: "Default Event Image" %>
+                                <% end %>
+                                <div class="group-info">
+                                <h6><%= user.first_name %> <%= user.last_name %></h6>
+                                <p><%= calculate_age(user.dob) %> years old</p>
+                                </div>
+                            </div>
+                            </label>
+                            <!-- User Checkbox -->
+                            <div class="form-check">
+                            <%= check_box_tag 'group[user][]', user.id, false, 
+                                class: "form-check-input", 
+                                id: "user_#{user.id}",
+                                data: { card_selection_target: "checkbox" }  %>
+                            <%= label_tag "user_#{user.id}", "Invite", class: "form-check-label d-none" %>
+                            </div>
+                        </div>
+                    <% end %>
+                    </div>
+                    <div class="group-submit">
+                        <div class="group-button">
+                            <%= f.submit 'Invite to Group', class: "btn btn-outline-success" %>
+                <% end %>
+                        </div>
+                    </div>
+            <% else %>
+                You are not allowed
+            <% end %>    
+        <% end %>
+    </div>
+</div>
+

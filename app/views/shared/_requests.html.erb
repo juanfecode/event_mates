@@ -1,6 +1,6 @@
 <% if outgoing_requests.any?%>
     <hr>
-    <p><strong>Outgoing requests</strong></p>
+    <h3 class="mb-5"><strong>Outgoing requests</strong></h3>
     <div class="carousel-container" data-controller="carousel">
         <div class="carousel">
             <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
@@ -17,7 +17,7 @@
                                 <h6><%= request.user.first_name %> <%= request.user.last_name %></h6>
                                 <p><%= calculate_age(request.user.dob) %> years old</p>
                             </div>
-                            <div>
+                            <div class="d-flex justify-content-center">
                                 <%= link_to "Cancel", cancel_request_path(request), data: { turbo_method: :delete }, class: "btn btn-secondary btn-sm rounded-pill" %>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
 <% end %>
 <% if incoming_requests.any? %>
     <hr>
-    <p><strong>Incoming requests</strong></p>
+    <h3 class="mb-5"><strong>Incoming requests</strong></h3>
     <div class="carousel-container" data-controller="carousel">
         <div class="carousel">
             <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
