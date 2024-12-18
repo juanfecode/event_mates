@@ -20,8 +20,7 @@
     <div class="profile-info-box small-box">
       <h5>Details</h5>
       <hr>
-      <h6>Age: <%= calculate_age(@user.dob) %></h6>
-      <h6>Hometown: <%= @user.hometown || "Not provided" %></h6>
+      <%= render "details" %>
     </div>
 
     <!-- Tags Section -->
@@ -97,7 +96,8 @@
       <button class="carousel-arrow left-arrow" data-action="click->carousel#slideLeft" data-carousel-target="leftArrow">‹</button>
       <div class="carousel-track-container">
         <div class="carousel-track" data-carousel-target="track">
-          <% @user.groups.each do |group| %>
+          <% groups = @user.accepted_groups + @user.groups %>
+          <% groups.each do |group| %>
             <% event = Event.find(group[:event_id]) %>
             <div class="carousel-card" data-carousel-target="card" data-url="<%= group_path(group) %>">
               <div class="carousel-card-content">

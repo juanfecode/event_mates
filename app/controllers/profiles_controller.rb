@@ -36,7 +36,7 @@ class ProfilesController < ApplicationController
       matching_score = (u.matching_profile - user_tags)
       if matching_score == []
         perfect_coincidence << u
-      elsif (user_tags.size - matching_score.size) / user_tags.size < 0.2
+      elsif user_tags.size.zero? || (user_tags.size - matching_score.size) / user_tags.size < 0.2
         coincidence << u
       end
     end
