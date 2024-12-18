@@ -1,32 +1,45 @@
-<div>
+<div class="page-container">
   <div class="event-banner">
-  <%= image_tag(asset_path('banner-placeholder.jpg'), alt: 'Cover Banner', class: 'cover-banner', style: "height: 200px")%>
-   </div>
-  <div class="">
-    <%= simple_form_for [@event] do |f| %>
-      <%= f.input :name %>
-      <%= f.input :location %>
-      <%= f.input :description %>
-      <%= f.input :date %>
-
-      </div>
-      <h1 class="mt-5">Select the tags of this event</h1>
-      <div>
-        <div class="tags-container" data-controller="event-tags">
-        <div class="tags">
-          <% @tags.each do |tag| %>
-            <span
-              class="tag <%= 'active' if @event.tags.include?(tag) %>"
-              data-event-tags-target="tag"
-              data-action="click->event-tags#eventTagToggle"
-              data-tag-id="<%= tag.id %>">
-              <%= tag.name %>
-            </span>
-          <% end %>
+    <%= image_tag(asset_path('banner-placeholder.jpg'), alt: 'Cover Banner', class: 'cover-banner', style: "height: 200px")%>
+  </div>
+    <div class="devise-container">
+        <%= simple_form_for [@event] do |f| %>
+        <div class="devise-form-inputs">
+          <%= f.input :name %>
+          <%= f.input :location, label: 'City'%>
+          <%= f.input :address %>
+          <%= f.input :description %>
+          <%= f.input :date,
+                    as: :string,
+                    required: false,
+                    label: "Date of Event",
+                    input_html: {
+                      type: "text",
+                      id: "test-datepicker",
+                      data: {
+                        controller: "datepicker",
+                        datepicker_target: "dob",
+                      }
+                    }%>
         </div>
 
-      </div>
-      <%= f.submit "Create Event", class: "btn btn-primary" %>
-    <% end %>
+    <h1 class="devise-title mt-5">Select the tags of this event</h1>
+      <div>
+        <div class="tags-container" data-controller="event-tags">
+          <div class="tags">
+            <% @tags.each do |tag| %>
+              <span
+                class="tag <%= 'active' if @event.tags.include?(tag) %>"
+                data-event-tags-target="tag"
+                data-action="click->event-tags#eventTagToggle"
+                data-tag-id="<%= tag.id %>">
+                <%= tag.name %>
+              </span>
+            <% end %>
+          </div>
+        <%= f.submit "Create Event", class: "tags-save-btn text-decoration-none" %>
+        </div>
+        <% end %>
+    </div>
   </div>
 </div>

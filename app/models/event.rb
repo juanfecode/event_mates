@@ -21,6 +21,7 @@ class Event < ApplicationRecord
 
   # Validations
   validates :location, presence: true
+  validates :address, presence: true
   validates :date, presence: true
   validates :date, uniqueness: { scope: :name }
   validates :name, presence: true
