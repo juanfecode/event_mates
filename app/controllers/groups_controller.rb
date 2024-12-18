@@ -39,7 +39,12 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     users_invited = params[:group][:user]
     users_invited.each do |user|
-      Request.create(group: @group, event: @group.event, user: User.find(user), status: "pending_join")
+      if @group.requests.where(user: user).where(status: "removed").any?
+        @request = @group.requests.where(user: user).where(status: "removed").first
+        @request.update(status: "pending_join")
+      else
+        Request.create(group: @group, event: @group.event, user: User.find(user), status: "pending_join")
+      end
     end
     redirect_to admin_group_path(@group)
   end
