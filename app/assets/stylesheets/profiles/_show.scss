@@ -60,6 +60,7 @@
   border: 1px solid #333333;
   border-radius: 8px; 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
 }
 
 .profile-info-box h5 {
@@ -101,5 +102,69 @@
 .content-sections {
   margin: 25px;
   margin-top: 45px;
+}
+
+.invitations-container {
+  max-height: 80%; /* Set a fixed maximum height */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  padding-right: 5px; /* Optional: space for scrollbar */
+  box-sizing: border-box; 
+  padding-bottom: 12px;
+}
+
+.profile-invite-container {
+  display: grid;
+  grid-template-columns: 1fr auto; /* 1 fraction for text, auto for buttons */
+  align-items: center; /* Vertically center content */
+  gap: 10px;
+}
+
+.profile-invites-info {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; /* Truncate text with ellipsis */
+}
+
+.profile-invites-actions {
+  display: flex; /* Keep buttons inline */
+  gap: 8px; /* Space between buttons */
+}
+
+.profile-invite-info p {
+  margin: 0;
+  display: inline-block; 
+}
+
+.profile-invite-btn {
+  display: inline-block;
+  padding: 4px 9px; /* Standard padding */
+  font-size: 0.875rem; /* Smaller font size */
+  font-weight: 600;
+  border: none;
+  border-radius: 50px; /* Rounded pill shape */
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.profile-invite-btn.accept {
+  color: #212121;
+  background-color: #198754;
+}
+
+.profile-invite-btn.reject {
+  border: 1px solid #FD1015;
+  color: #FD1015;
+  background-color: transparent;
+}
+
+/* Hover and focus state */
+.profile-invite-btn:hover,
+.profile-invite-btn:focus {
+  background-color: #5a6268; /* Darker gray on hover */
+  outline: none;
+  transform: scale(1.02); /* Subtle scale effect */
 }
 

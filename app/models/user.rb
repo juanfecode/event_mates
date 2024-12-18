@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :group_messages
   has_one_attached :photo
   has_many :questions
+  has_many :invitations, -> { where(status: "pending_join") }, class_name: "Request"
 
   def own_groups
     groups
