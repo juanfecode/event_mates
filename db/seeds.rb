@@ -130,7 +130,7 @@ rescue StandardError => e
 end
 
 # Create events 
-csv_path = "storage/events.csv"
+csv_path = "db/events.csv"
 csv_events = EventsCsvService.load_from_csv(csv_path)
 csv_events.each do |event|
   created_event = Event.create!(
