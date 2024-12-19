@@ -202,14 +202,14 @@ end
 # Assign 3 random tags to each user as user_tags
 tags = Tag.all
 users.each do |user|
-  user.tags << tags.sample(3)
+  user.tags << tags.sample(6)
 end
 
 # Create 10 groups, each owned by a random user and linked to an event with matching names
 events = Event.all
 groups = events.map do |event|
   Group.create!(
-    bio: "Group for enjoying #{event.name} together",
+    bio: "lets enjoy #{event.name} together",
     event: event,
     user: users.sample
   )
@@ -257,7 +257,7 @@ events = Event.all
 users = User.all
 
 users.each do |user|
-  5.times do
+  15.times do
     event = events.sample
     unless FavoriteEvent.exists?(user: user, event: event)
       FavoriteEvent.create!(
