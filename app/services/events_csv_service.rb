@@ -3,7 +3,7 @@ require "csv"
 class EventsCsvService
 
   def self.save_to_csv(events)
-    csv_path = "storage/events.csv"
+    csv_path = "db/events.csv"
     CSV.open(csv_path, "wb") do |csv|
       csv << ["Name", "Link", "Description", "Location", "Address", "Date", "Image"]
       events.each do |event|
