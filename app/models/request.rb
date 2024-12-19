@@ -13,5 +13,10 @@ class Request < ApplicationRecord
                         partial: "shared/profile_notification_dot",
                         target: "profile-dropdown",
                         locals: { user: user }
+
+    broadcast_replace_to "profile_#{user.id}_notifications",
+                         partial: "shared/invite_notification",
+                         target: "invitations",
+                         locals: { event: event, group: group, request: self }
   end
 end
