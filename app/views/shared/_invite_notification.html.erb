@@ -1,0 +1,15 @@
+<div class="profile-invite-container">
+    <div class="profile-invite-info">
+        <p><%= event.name %> | <%= group.bio %></p>
+    </div>
+    <div class="profile-invite-actions">
+        <%= link_to approve_request_path(request), class: "profile-invite-btn accept",
+                                                  data: { turbo_method: :patch } do %>
+            <i class="fa-solid fa-check"></i>
+        <% end %>
+        <%= link_to request_form_path(type: "cancel", request_id: request.id, id: group.id), class: "profile-invite-btn reject",
+                                                                              data: { turbo_frame: "remote_modal_confirm" } do %>
+            <i class="fa-solid fa-xmark"></i>
+        <% end %>
+    </div>
+</div>
