@@ -35,5 +35,4 @@ class User < ApplicationRecord
   def matching_profile
     tags.map(&:id).sort
   end
-
 end

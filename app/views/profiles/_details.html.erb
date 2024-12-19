@@ -1,7 +1,7 @@
 <% if current_user.id == @user.id %>
   <div class="invitations-container">
     <%if @user.invitations.empty? %>
-      <p>No invitations...</p>
+      <p class="small">No new invitations pending</p>
     <% else %>
       <% @user.invitations.each do |invite| %>
         <div class="profile-invite-container">
