@@ -52,10 +52,10 @@
                             <div class="d-flex justify-content-center">
                                 <%= link_to "View", request_form_path(type: "approve", request_id: request.id),
                                                                                         data: { turbo_frame: "remote_modal_confirm" },
-                                                                                        class: "btn btn-primary btn-sm rounded-pill mx-2 w-25" %>
+                                                                                        class: "btn btn-primary btn-sm rounded-pill mx-2 w-50" %>
                                 <%= link_to "Reject", request_form_path(type: "reject", request_id: request.id),
                                                                                         data: { turbo_frame: "remote_modal_confirm" },
-                                                                                        class: "btn btn-secondary btn-sm rounded-pill mx-2 w-25" %>
+                                                                                        class: "btn btn-secondary btn-sm rounded-pill mx-2 w-50" %>
                             </div>
                         </div>
                     <% end %>
